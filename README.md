@@ -1,11 +1,14 @@
-# Analiza podatkov s programom R, 2017/18
+﻿# Analiza podatkov s programom R, 2017/18
+
+Avtor: Jan Rudof
 
 Repozitorij z gradivi pri predmetu APPR v študijskem letu 2017/18
 
-## Tematika
+## Analiza potovanj Evropejcev
 
-Izbrali si boste temo, s katero se bo vaš projekt ukvarjal. Tukaj boste
-napisali, kje ste dobili podatke, ter kakšen je vaš cilj.
+Pri projektu bom analiziral strukturo potovanja Evropejcev. Zanimal se bom za količino denarja, ki ga namenijo potovanju,
+koliko dni potujejo, kam potujejo, s katerim transportom se najrajši odpravijo na potovanje, kdaj potujejo itd. Podatkovni viri so SURS, 
+Eurostat in Wikipedija.
 
 ## Program
 
