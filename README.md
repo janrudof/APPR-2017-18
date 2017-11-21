@@ -4,9 +4,9 @@ Avtor: Jan Rudof
 
 Repozitorij z gradivi pri predmetu APPR v študijskem letu 2017/18
 
-## Analiza potovanj Evropejcev
+## Analiza potovanj Slovencev
 
-Pri projektu bom analiziral strukturo potovanja Evropejcev. Zanimal se bom za količino denarja, ki ga namenijo potovanju,
+Pri projektu bom analiziral strukturo potovanja Slovencev. Zanimal se bom za količino denarja, ki ga namenijo potovanju,
 koliko dni potujejo, kam potujejo, s katerim transportom se najrajši odpravijo na potovanje, kdaj potujejo itd. Podatkovni viri so SURS, 
 Eurostat in Wikipedija.
 
