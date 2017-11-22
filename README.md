@@ -12,16 +12,16 @@ Zanimala me bo predvsem razlika v strukturi potovanj v predkriznem, kriznem in v
 
 ### Zasnova tabel
 
-#### Tabela 1: Prebivalci Slovenije po udeleženosti na potovanjih po starosti (v 1000)
-Stolpci: leto, vrsta potovanja(zasebno/poslovna), starost-skupaj, 12-24, 25-44, 45-64, 65+
-#### Tabela 2: Prebivalci Slovenije po udeleženosti na potovanjih po mesečnem neto dohodku (v 1000)
-Stolpci: leto,vrsta potovanja(zasebna/poslovna), skupaj, 1.kvartil, 2.kvartil, 3.kvartil, 4.kvartil, ni znano
-#### Tabela 3: Struktura izdatkov prebivalcev Slovenije na potovanjih (izdatki so dani kot povprečni izdatki na turista na prenočitev (EUR))
-Stolpci: leto, vrsta potovanja(zasebno/poslovno), destinacija(Slovenija/tujina), izdatki-skupaj, izdatki za prevoz, izdatki za nastanitev, izdatki za hrano in pijačo, izdatki za druge aktivnosti
+#### Tabela 1: Prebivalci Slovenije po udeleženosti na potovanjih po starosti
+Stolpci: leto, vrsta potovanja, starost-skupaj, različne starostne skupine(več stolpcev)
+#### Tabela 2: Prebivalci Slovenije po udeleženosti na potovanjih po mesečnem neto dohodku
+Stolpci: leto, vrsta potovanja, skupaj, skupine mesečnih dohodkov(več stolpcev)
+#### Tabela 3: Struktura izdatkov prebivalcev Slovenije na potovanjih 
+Stolpci: leto, vrsta potovanja, destinacija, izdatki-skupaj, izdatki za prevoz, izdatki za nastanitev, izdatki za hrano in pijačo, izdatki za druge aktivnosti
 #### Tabela 4: Zasebna potovanja po državi potovanja
-Stolpci: leto, država, BDP države, BDP države per capita, potovanja(v 1000), prenočitve(v 1000), povprečno število prenočitev
+Stolpci: leto, država, BDP države, BDP države per capita, število potovanj, število prenočitev, povprečno število prenočitev
 #### Tabela 5: Zasebna potovanja po destinaciji in nastanitvenem objektu
-Stolpci: leto, destinacija(Slovenija/tujina), nastavitveni objekt, potovanja(v 1000), prenočitve(v 1000), povprečni izdatki na turista na prenočitev(EUR)
+Stolpci: leto, destinacija, nastavitveni objekt, število potovanja, število prenočitev, povprečni izdatki na turista na prenočitev(EUR)
 
 
 
