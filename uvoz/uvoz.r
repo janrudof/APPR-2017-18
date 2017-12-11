@@ -1,5 +1,26 @@
 # 2. faza: Uvoz podatkov
 
+#Tabela 1: Prebivalci Slovenije po udeleženosti na potovanjih po starosti
+uvozi.tabela1 <- function(){
+  stolpci1 <- c("STAROST", "VRSTA POTOVANJA", "CETRTLETJE", "MERITEV")
+  tabela1 <- read_csv2("STAROST.csv", 
+                       locale = locale(encoding = "cp1250"), 
+                       col_names=stolpci1,
+                       skip = 2,
+                       n_max = 455)
+  tabela1 <- tabela1[c(3,1,2,4)]
+  tabela1 <- tabela1 %>% fill(2:3)
+  tabela1 <- tabela1[-c(1,2,47,92,93,138,183,184,229,274,275,320,365,366,411), ]
+}
+tabela1 <- uvozi.tabela1()
+View(tabela1)
+
+
+
+
+
+#Pomoč s primerom:
+
 sl <- locale("sl", decimal_mark = ",", grouping_mark = ".")
 
 # Funkcija, ki uvozi občine iz Wikipedije
