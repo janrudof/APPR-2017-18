@@ -15,6 +15,36 @@ uvozi.tabela1 <- function(){
 tabela1 <- uvozi.tabela1()
 View(tabela1)
 
+#Tabela 2: Prebivalci Slovenije po udeleženosti na potovanjih po mesečnem dohodku
+uvozi.tabela2 <- function(){
+  stolpci2 <- c("DOHODKOVNI RAZRED", "VRSTA POTOVANJA", "CETRTLETJE", "MERITVE")
+  tabela2 <- read_csv2("NETO DOHODEK.csv",
+                       locale = locale(encoding = "cp1250"),
+                       col_names = stolpci2,
+                       skip = 2,
+                       n_max = 455)
+  tabela2 <- tabela2[c(3,1,2,4)]
+  tabela2 <- tabela2 %>% fill(2:3)
+  tabela2 <- tabela2[-c(1,2,47,92,93,138,183,184,229,274,275,320,365,366,411), ]
+}
+tabela2 <- uvozi.tabela2()
+View(tabela2)
+
+#Tabela 5: Zasebna potovanja po destinaciji in nastanitvenem objektu
+uvozi.tabela5 <- function(){
+  stolpci5 <- c("DESTINACIJA", "VRSTA NASTANITVE", "VRSTA MERITVE", "CETRTLETJE", "MERITEV")
+  tabela5 <- read_csv2("NASTANITEV.csv",
+                       locale = locale(encoding = "cp1250"),
+                       col_names = stolpci5,
+                       skip = 2,
+                       n_max = 1094,
+                       na=c(""," ", "-","N"))
+  tabela5 <- tabela5 %>% fill(1:3)
+  tabela5 <- tabela5[c(4,1,2,3,5)]
+}
+tabela5 <- uvozi.tabela5()
+View(tabela5)
+
 
 
 
