@@ -2,48 +2,75 @@
 
 #Tabela 1: Prebivalci Slovenije po udeleženosti na potovanjih po starosti
 uvozi.tabela1 <- function(){
-  stolpci1 <- c("STAROST", "VRSTA POTOVANJA", "CETRTLETJE", "MERITEV")
-  tabela1 <- read_csv2("STAROST.csv", 
+  stolpci1 <- c("STAROST", "VRSTA_POTOVANJA", "CETRTLETJE", "MERITEV")
+  tabela1 <- read_csv2("podatki/STAROST.csv", 
                        locale = locale(encoding = "cp1250"), 
                        col_names=stolpci1,
                        skip = 2,
                        n_max = 455)
   tabela1 <- tabela1[c(3,1,2,4)]
   tabela1 <- tabela1 %>% fill(2:3)
-  tabela1 <- tabela1[-c(1,2,47,92,93,138,183,184,229,274,275,320,365,366,411), ]
+  tabela1$MERITEV <- tabela1$MERITEV %>% parse_number()
+  tabela1 <- tabela1 %>% fill(2:3) %>% drop_na(1)
+  tabela1$MERITEV <- parse_integer(tabela1$MERITEV)
+  tabela1 <- tabela1 %>% arrange(CETRTLETJE)
+  tabela1 <- tabela1 %>% mutate(LETO = CETRTLETJE %>% strapplyc("^([0-9]+)") %>%
+                                  unlist() %>% parse_number(),
+                                CETRTLETJE = CETRTLETJE %>% strapplyc("([0-9])$") %>%
+                                  unlist() %>% parse_number())
+  tabela1 <- tabela1[c(5,1,2,3,4)]
+  return(tabela1)
 }
 tabela1 <- uvozi.tabela1()
-View(tabela1)
+
 
 #Tabela 2: Prebivalci Slovenije po udeleženosti na potovanjih po mesečnem dohodku
 uvozi.tabela2 <- function(){
-  stolpci2 <- c("DOHODKOVNI RAZRED", "VRSTA POTOVANJA", "CETRTLETJE", "MERITVE")
-  tabela2 <- read_csv2("NETO DOHODEK.csv",
+  stolpci2 <- c("DOHODKOVNI_RAZRED", "VRSTA_POTOVANJA", "CETRTLETJE", "MERITEV")
+  tabela2 <- read_csv2("podatki/NETO_DOHODEK.csv",
                        locale = locale(encoding = "cp1250"),
                        col_names = stolpci2,
                        skip = 2,
                        n_max = 455)
   tabela2 <- tabela2[c(3,1,2,4)]
   tabela2 <- tabela2 %>% fill(2:3)
-  tabela2 <- tabela2[-c(1,2,47,92,93,138,183,184,229,274,275,320,365,366,411), ]
+  tabela2$MERITEV <- tabela2$MERITEV %>% parse_number()
+  tabela2 <- tabela2 %>% fill(2:3) %>% drop_na(1)
+  tabela2$MERITEV <- parse_integer(tabela2$MERITEV)
+  tabela2 <- tabela2 %>% arrange(CETRTLETJE)
+  tabela2 <- tabela2 %>% mutate(LETO = CETRTLETJE %>% strapplyc("^([0-9]+)") %>%
+                                  unlist() %>% parse_number(),
+                                CETRTLETJE = CETRTLETJE %>% strapplyc("([0-9])$") %>%
+                                  unlist() %>% parse_number())
+  tabela2 <- tabela2[c(5,1,2,3,4)]
+  return(tabela2)
 }
 tabela2 <- uvozi.tabela2()
-View(tabela2)
+
 
 #Tabela 5: Zasebna potovanja po destinaciji in nastanitvenem objektu
 uvozi.tabela5 <- function(){
-  stolpci5 <- c("DESTINACIJA", "VRSTA NASTANITVE", "VRSTA MERITVE", "CETRTLETJE", "MERITEV")
-  tabela5 <- read_csv2("NASTANITEV.csv",
+  stolpci5 <- c("DESTINACIJA", "VRSTA_NASTANITVE", "VRSTA_MERITVE", "CETRTLETJE", "MERITEV")
+  tabela5 <- read_csv2("podatki/NASTANITEV.csv",
                        locale = locale(encoding = "cp1250"),
                        col_names = stolpci5,
                        skip = 2,
                        n_max = 1094,
                        na=c(""," ", "-","N"))
   tabela5 <- tabela5 %>% fill(1:3)
+  tabela5$MERITEV <- tabela5$MERITEV %>% parse_number()
   tabela5 <- tabela5[c(4,1,2,3,5)]
+  tabela5 <- tabela5 %>% fill(2:3) %>% drop_na(1)
+  tabela5 <- tabela5 %>% arrange(CETRTLETJE)
+  tabela5 <- tabela5 %>% mutate(LETO = CETRTLETJE %>% strapplyc("^([0-9]+)") %>%
+                                  unlist() %>% parse_number(),
+                                CETRTLETJE = CETRTLETJE %>% strapplyc("([0-9])$") %>%
+                                  unlist() %>% parse_number())
+  tabela5 <- tabela5[c(6,1,2,3,4,5)]
+  return(tabela5)
 }
 tabela5 <- uvozi.tabela5()
-View(tabela5)
+
 
 
 
