@@ -102,15 +102,35 @@ uvozi.tabela5 <- function(){
                        skip = 2,
                        n_max = 1054,
                        na = c("", " ", "-", "N"))
-  tabela5 <- tabela5 %>% fill(1:4)
+    tabela5 <- tabela5 %>% fill(1:4)
   tabela5 <- tabela5 %>% arrange(LETO)
   tabela5 <- tabela5 %>% drop_na(1:5)
   tabela5$MERITVE <- tabela5$MERITVE %>% parse_number()
   tabela5 <- tabela5[c(4,1,2,3,5)]
+  tabela5$DRZAVA_POTOVANJA <- gsub("Evropa", "Europe", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Avstrija", "Austria", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub(".panija", "Spain", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub(".rna gora", "Montenegro", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Italija", "Italy", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Hrva.ka", "Croatia", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Nem.ija", "Germany", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Francija", "France", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Mad.arska", "Hungary", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Gr.ija", "Greece", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Bosna in Hercegovina", "Bosnia and Herzegovina", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Srbija", "Rebublic of Serbia", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Tur.ija", "Turkey", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Zdru.eno kraljestvo", "United Kingdom", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Afrika", "Africa", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Azija", "Asia", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub(".e.ka republika", "Czech Republic", tabela5$DRZAVA_POTOVANJA)
+  tabela5$VRSTA_MERITVE <- gsub("Preno.itve (v 1000)", "Prenocitve (v 1000)", tabela5$VRSTA_MERITVE)
+  tabela5$VRSTA_MERITVE <- gsub("Povpre.no .tevilo preno.itev", "Povprecno stevilo prenocitev", tabela5$VRSTA_MERITVE)
+  tabela5$VRSTA_MERITVE <- gsub("Povpre.ni izdatki na turista na preno.itev (EUR)", "Povprecni izdatki na turista na prenocitev (EUR)", tabela5$VRSTA_MERITVE)
   return(tabela5)
 }
 tabela5 <- uvozi.tabela5()
-View(tabela5)
+
 
 
 
