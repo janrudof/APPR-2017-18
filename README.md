@@ -1,38 +1,35 @@
-﻿# Analiza podatkov s programom R, 2017/18
+# Analiza podatkov s programom R, 2017/18
 
 Avtor: Jan Rudof
 
 Repozitorij z gradivi pri predmetu APPR v študijskem letu 2017/18
 
-## Analiza potovanj Slovencev
+## Analiza potovanj prebivalcev Slovenije
 
-Pri projektu bom analiziral potovanja Slovencev v letih 2006 do 2016. Osredotočil se bom na glavne faktorje, kot so: število ljudi, ki se odloči za potovanje, finance namenjene potovanju 
-in struktura izdatkov, število dni potovanja, odločitev za potovanje glede na neto dohodek, odločitev za potovanje glede na starost, nastanitev ter vrsto potovanja. 
-Zanimala me bo predvsem razlika v strukturi potovanj v predkriznem, kriznem in v današnjem času.
+Pri projektu bom analiziral potovanja Slovencev v letih 2006 do 2016. Osredotočil se bom na glavne faktorje, kot so: število ljudi, ki se odloči za potovanje, finance namenjene potovanju in struktura izdatkov, število dni potovanja, odločitev za potovanje glede na neto dohodek, odločitev za potovanje glede na starost, nastanitev ter vrsto potovanja. 
+Zanimala me bo predvsem razlika v strukturi potovanj v predkriznem, kriznem in v današnjem (lahko rečem pokriznem) času.
 
 ### Zasnova tabel
 
 #### Tabela 1: Prebivalci Slovenije po udeleženosti na potovanjih po starosti
-Stolpci: leto, vrsta potovanja, starost-skupaj, različne starostne skupine(več stolpcev)
-#### Tabela 2: Prebivalci Slovenije po udeleženosti na potovanjih po mesečnem neto dohodku
-Stolpci: leto, vrsta potovanja, skupaj, skupine mesečnih dohodkov(več stolpcev)
-#### Tabela 3: Struktura izdatkov prebivalcev Slovenije na potovanjih 
-Stolpci: leto, vrsta potovanja, destinacija, izdatki-skupaj, izdatki za prevoz, izdatki za nastanitev, izdatki za hrano in pijačo, izdatki za druge aktivnosti
-#### Tabela 4: Zasebna potovanja po državi potovanja
-Stolpci: leto, država, BDP države, BDP države per capita, število potovanj, število prenočitev, povprečno število prenočitev
-#### Tabela 5: Zasebna potovanja po destinaciji in nastanitvenem objektu
-Stolpci: leto, destinacija, nastavitveni objekt, število potovanja, število prenočitev, povprečni izdatki na turista na prenočitev(EUR)
+Stolpci: LETO, ČETRTLETJE, STAROST, VRSTA POTOVANJA, MERITEV
 
+#### Tabela 2: Prebivalci Slovenije po udeleženosti na potovanjih po mesečnem neto dohodku
+Stolpci: LETO, ČETRTLETJE, DOHODKOVNI RAZRED, VRSTA POTOVANJA, MERITEV
+
+#### Tabela 3: Struktura izdatkov prebivalcev Slovenije na potovanjih 
+Stolpci: LETO, ČETRTLETJE, DESTINACIJA, VRSTA NASTANITVE, VRSTA MERITVE, MERITEV
+
+#### Tabela 4: Zasebna potovanja po državi potovanja
+Stolpci: LETO, ČETRTLETJE, DESTINACIJA, VRSTA PREVOZA, VRSTA MERITVE, MERITEV
+
+#### Tabela 5: Zasebna potovanja po destinaciji in nastanitvenem objektu
+Stolpci: LETO, DRŽAVA POTOVANJA, KRATICA, ŠTEVILO POTOVANJ
 
 
 ### Viri podatkov
 
-- http://pxweb.stat.si/pxweb/Database/Ekonomsko/21_gostinstvo_turizem/06_potovanja/10_21698_udelezenost_letno/10_21698_udelezenost_letno.asp (CSV)
-- http://pxweb.stat.si/pxweb/Database/Ekonomsko/21_gostinstvo_turizem/06_potovanja/20_21700_razlogi_neodhod_letno/20_21700_razlogi_neodhod_letno.asp (CSV)
-- http://pxweb.stat.si/pxweb/Database/Ekonomsko/21_gostinstvo_turizem/06_potovanja/30_21702_znacilnosti_letno/30_21702_znacilnosti_letno.asp (CSV)
-- https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)_per_capita (HTML)
-- https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal) (HTML)
-
+Vsi podatkovni viri so v mapi [podatki](https://github.com/janrudof/APPR-2017-18/tree/master/podatki).
 
 ## Program
 
