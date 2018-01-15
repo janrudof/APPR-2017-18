@@ -46,14 +46,14 @@ uvozi.tabela2 <- function(){
   return(tabela2)
 }
 tabela2 <- uvozi.tabela2()
-View(tabela2)
+
 
 #Tabela 3: Zasebna potovanja po destinaciji in nastanitvenem objektu
 uvozi.tabela3 <- function(){
   stolpci3 <- c("DESTINACIJA", "VRSTA_NASTANITVE", "VRSTA_MERITVE", "CETRTLETJE", "MERITEV")
   tabela3 <- read_csv2("podatki/NASTANITEV.csv",
                        locale = locale(encoding = "cp1250"),
-                       col_names = stolpci5,
+                       col_names = stolpci3,
                        skip = 2,
                        n_max = 1094,
                        na=c(""," ", "-","N"))
@@ -70,6 +70,10 @@ uvozi.tabela3 <- function(){
   return(tabela3)
 }
 tabela3 <- uvozi.tabela3()
+
+tabela3.stevilo <- tabela3 %>% filter(VRSTA_MERITVE %in% c("Potovanja (v 1000)",
+                                                           "Prenočitve (v 1000)"))
+
 
 #Tabela 4: Zasebna potovanja po destinaciji in prevoznem sredstvu
 uvozi.tabela4 <- function(){
@@ -93,46 +97,37 @@ uvozi.tabela4 <- function(){
 }
 tabela4 <- uvozi.tabela4()
 
-#Tabela 5: Najbolj obiskane evrpske države in celine
+
+
+#Tabela 5: Države potovanja
+
 uvozi.tabela5 <- function(){
-  stolpci5 <- c("VRSTA_POTOVANJA", "DRZAVA_POTOVANJA", "VRSTA_MERITVE", "LETO", "MERITVE")
-  tabela5 <- read_csv2("podatki/DRZAVA_POTOVANJA.csv",
-                       locale = locale(encoding= "cp1250"),
-                       col_names= stolpci5,
-                       skip = 2,
-                       n_max = 1054,
+  stolpci5 <- c("DRZAVA_POTOVANJA", "KRATICA", "1995","1996", "1997", "1998", "1999", "2000", "2001", "2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","SPREMEMBA")
+  
+  tabela5 <- read_xlsx("podatki/DRZAVE_POTOVANJA2.xlsx",
+                       col_names = stolpci5,
+                       skip= 7,
+                       n_max= 159,
                        na = c("", " ", "-", "N"))
-    tabela5 <- tabela5 %>% fill(1:4)
-  tabela5 <- tabela5 %>% arrange(LETO)
-  tabela5 <- tabela5 %>% drop_na(1:5)
-  tabela5$MERITVE <- tabela5$MERITVE %>% parse_number()
-  tabela5 <- tabela5[c(4,1,2,3,5)]
-  tabela5$DRZAVA_POTOVANJA <- gsub("Evropa", "Europe", tabela5$DRZAVA_POTOVANJA)
-  tabela5$DRZAVA_POTOVANJA <- gsub("Avstrija", "Austria", tabela5$DRZAVA_POTOVANJA)
-  tabela5$DRZAVA_POTOVANJA <- gsub(".panija", "Spain", tabela5$DRZAVA_POTOVANJA)
-  tabela5$DRZAVA_POTOVANJA <- gsub(".rna gora", "Montenegro", tabela5$DRZAVA_POTOVANJA)
-  tabela5$DRZAVA_POTOVANJA <- gsub("Italija", "Italy", tabela5$DRZAVA_POTOVANJA)
-  tabela5$DRZAVA_POTOVANJA <- gsub("Hrva.ka", "Croatia", tabela5$DRZAVA_POTOVANJA)
-  tabela5$DRZAVA_POTOVANJA <- gsub("Nem.ija", "Germany", tabela5$DRZAVA_POTOVANJA)
-  tabela5$DRZAVA_POTOVANJA <- gsub("Francija", "France", tabela5$DRZAVA_POTOVANJA)
-  tabela5$DRZAVA_POTOVANJA <- gsub("Mad.arska", "Hungary", tabela5$DRZAVA_POTOVANJA)
-  tabela5$DRZAVA_POTOVANJA <- gsub("Gr.ija", "Greece", tabela5$DRZAVA_POTOVANJA)
-  tabela5$DRZAVA_POTOVANJA <- gsub("Bosna in Hercegovina", "Bosnia and Herzegovina", tabela5$DRZAVA_POTOVANJA)
-  tabela5$DRZAVA_POTOVANJA <- gsub("Srbija", "Rebublic of Serbia", tabela5$DRZAVA_POTOVANJA)
-  tabela5$DRZAVA_POTOVANJA <- gsub("Tur.ija", "Turkey", tabela5$DRZAVA_POTOVANJA)
-  tabela5$DRZAVA_POTOVANJA <- gsub("Zdru.eno kraljestvo", "United Kingdom", tabela5$DRZAVA_POTOVANJA)
-  tabela5$DRZAVA_POTOVANJA <- gsub("Afrika", "Africa", tabela5$DRZAVA_POTOVANJA)
-  tabela5$DRZAVA_POTOVANJA <- gsub("Azija", "Asia", tabela5$DRZAVA_POTOVANJA)
-  tabela5$DRZAVA_POTOVANJA <- gsub(".e.ka republika", "Czech Republic", tabela5$DRZAVA_POTOVANJA)
-  tabela5$VRSTA_MERITVE <- gsub("Preno.itve (v 1000)", "Prenocitve (v 1000)", tabela5$VRSTA_MERITVE)
-  tabela5$VRSTA_MERITVE <- gsub("Povpre.no .tevilo preno.itev", "Povprecno stevilo prenocitev", tabela5$VRSTA_MERITVE)
-  tabela5$VRSTA_MERITVE <- gsub("Povpre.ni izdatki na turista na preno.itev (EUR)", "Povprecni izdatki na turista na prenocitev (EUR)", tabela5$VRSTA_MERITVE)
+  tabela5$SPREMEMBA <- NULL
+  tabela5$`1995` <- NULL
+  tabela5$`1996`<- NULL
+  tabela5$`1997`<- NULL
+  tabela5$`1998`<- NULL
+  tabela5$`1999`<- NULL
+  tabela5$`2000`<- NULL
+  tabela5$`2001`<- NULL
+  tabela5$`2002`<- NULL
+  tabela5$`2003`<- NULL
+  tabela5$`2004`<- NULL
+  tabela5$`2005`<- NULL
+  tabela5 <- gather(tabela5, "2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016", key = "LETO", value = "STEVILO_POTOVANJ" )
+  tabela5 <- tabela5[c(3,1,2,4)]
+  tabela5 <- tabela5 %>% drop_na(1:4)
+  tabela5$LETO <- tabela5$LETO %>% parse_integer()
   return(tabela5)
 }
+
 tabela5 <- uvozi.tabela5()
-
-
-
-
 
 

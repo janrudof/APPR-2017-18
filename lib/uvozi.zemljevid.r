@@ -2,14 +2,11 @@
 library(sp)
 library(maptools)
 library(digest)
+library(ggmap)
+library(ggvis)
+library(rgeos)
+library(RColorBrewer)
 gpclibPermit()
-
-
-
-
-
-
-
 
 
 # Funkcija uvozi.zemljevid(url, ime.zemljevida, pot.zemljevida,

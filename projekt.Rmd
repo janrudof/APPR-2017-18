@@ -21,7 +21,7 @@ source("lib/libraries.r", encoding = "UTF-8")
 
 # Izbira teme
 
-Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
+Analiza potovanj prebivalcev Slovenije
 
 ***
 
@@ -31,8 +31,7 @@ Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
 source("uvoz/uvoz.r", encoding = "UTF-8")
 ```
 
-Uvozili smo podatke o občinah v obliki CSV s statističnega urada ter v obliki HTML
-z Wikipedije. Podatke imamo v dveh razpredelnicah v obliki *tidy data*.
+Uvozili smo podatke o značilnostih potovanj prebivalcev Slovenije v obliki CSV s statističnega urada ter v obliki XLSX World Tourism Organisation. Podatke imamo v petih razpredelnicah v obliki *tidy data*.
 
 1. `druzine` - podatki o družinah za vsako občino
   - `obcina` - spremenljivka: ime občine (neurejen faktor),

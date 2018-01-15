@@ -7,6 +7,7 @@ library(ggplot2)
 library(reshape2)
 library(shiny)
 library(tidyr)
+library(readxl)
 
 
 # Uvozimo funkcije za pobiranje in uvoz zemljevida.
