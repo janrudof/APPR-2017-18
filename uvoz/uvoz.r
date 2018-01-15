@@ -14,6 +14,7 @@ uvozi.tabela1 <- function(){
   tabela1 <- tabela1 %>% fill(1:4) %>% drop_na(1)
   tabela1$MERITEV <- parse_integer(tabela1$MERITEV)
   tabela1 <- tabela1 %>% arrange(CETRTLETJE)
+  tabela1$VRSTA_POTOVANJA <- gsub(".li na zasebno potovanje", "Sli na zasebno potovanje", tabela1$VRSTA_POTOVANJA)
   tabela1 <- tabela1 %>% mutate(LETO = CETRTLETJE %>% strapplyc("^([0-9]+)") %>%
                                   unlist() %>% parse_number(),
                                 CETRTLETJE = CETRTLETJE %>% strapplyc("([0-9])$") %>%
@@ -23,6 +24,8 @@ uvozi.tabela1 <- function(){
 }
 tabela1 <- uvozi.tabela1()
 
+tabela1.zdruzena <- tabela1 %>% group_by(LETO, `STAROST`, `VRSTA_POTOVANJA`) %>%
+  summarise(SKUPAJ = sum(MERITEV))
 
 #Tabela 2: Prebivalci Slovenije po udeleženosti na potovanjih po mesečnem dohodku
 uvozi.tabela2 <- function(){
@@ -43,10 +46,13 @@ uvozi.tabela2 <- function(){
                                 CETRTLETJE = CETRTLETJE %>% strapplyc("([0-9])$") %>%
                                   unlist() %>% parse_number())
   tabela2 <- tabela2[c(5,1,2,3,4)]
+  tabela2$VRSTA_POTOVANJA <- gsub(".li na zasebno potovanje", "Sli na zasebno potovanje", tabela2$VRSTA_POTOVANJA)
   return(tabela2)
 }
 tabela2 <- uvozi.tabela2()
 
+tabela2.zdruzena <- tabela2 %>% group_by(LETO, `DOHODKOVNI_RAZRED`, `VRSTA_POTOVANJA`) %>%
+  summarise(SKUPAJ = sum(MERITEV))
 
 #Tabela 3: Zasebna potovanja po destinaciji in nastanitvenem objektu
 uvozi.tabela3 <- function(){
@@ -74,6 +80,8 @@ tabela3 <- uvozi.tabela3()
 tabela3.stevilo <- tabela3 %>% filter(VRSTA_MERITVE %in% c("Potovanja (v 1000)",
                                                            "Prenočitve (v 1000)"))
 
+tabela3.zdruzena <- tabela3 %>% group_by(LETO, `DESTINACIJA`, `VRSTA_NASTANITVE`, `VRSTA_MERITVE`) %>%
+  summarise(SKUPAJ = sum(MERITEV))
 
 #Tabela 4: Zasebna potovanja po destinaciji in prevoznem sredstvu
 uvozi.tabela4 <- function(){
@@ -96,6 +104,9 @@ uvozi.tabela4 <- function(){
   return(tabela4)
 }
 tabela4 <- uvozi.tabela4()
+
+tabela4.zdruzena <- tabela4 %>% group_by(LETO, `DESTINACIJA`, `VRSTA_PREVOZA`, `VRSTA_MERITVE`) %>%
+  summarise(SKUPAJ = sum(MERITEV))
 
 
 
