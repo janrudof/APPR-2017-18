@@ -10,22 +10,23 @@ uvozi.tabela1 <- function(){
                        n_max = 455)
   tabela1 <- tabela1[c(3,1,2,4)]
   tabela1 <- tabela1 %>% fill(2:3)
-  tabela1$MERITEV <- tabela1$MERITEV %>% parse_number()
   tabela1 <- tabela1 %>% fill(1:4) %>% drop_na(1)
-  tabela1$MERITEV <- parse_integer(tabela1$MERITEV)
   tabela1 <- tabela1 %>% arrange(CETRTLETJE)
   tabela1$VRSTA_POTOVANJA <- gsub(".li na zasebno potovanje", "Sli na zasebno potovanje", tabela1$VRSTA_POTOVANJA)
   tabela1 <- tabela1 %>% mutate(LETO = CETRTLETJE %>% strapplyc("^([0-9]+)") %>%
                                   unlist() %>% parse_number(),
                                 CETRTLETJE = CETRTLETJE %>% strapplyc("([0-9])$") %>%
                                   unlist() %>% parse_number())
+  tabela1$MERITEV <- parse_number(tabela1$MERITEV)
+  tabela1$LETO <- parse_integer(tabela1$LETO)
+  tabela1$STAROST <- parse_character(tabela1$STAROST)
+  tabela1$VRSTA_POTOVANJA <- parse_character(tabela1$VRSTA_POTOVANJA)
   tabela1 <- tabela1[c(5,1,2,3,4)]
   return(tabela1)
 }
 tabela1 <- uvozi.tabela1()
 
-tabela1.zdruzena <- tabela1 %>% group_by(LETO, `STAROST`, `VRSTA_POTOVANJA`) %>%
-  summarise(SKUPAJ = sum(MERITEV))
+
 
 #Tabela 2: Prebivalci Slovenije po udeleženosti na potovanjih po mesečnem dohodku
 uvozi.tabela2 <- function(){
@@ -39,7 +40,6 @@ uvozi.tabela2 <- function(){
   tabela2 <- tabela2 %>% fill(2:3)
   tabela2$MERITEV <- tabela2$MERITEV %>% parse_number()
   tabela2 <- tabela2 %>% fill(2:4) %>% drop_na(1)
-  tabela2$MERITEV <- parse_integer(tabela2$MERITEV)
   tabela2 <- tabela2 %>% arrange(CETRTLETJE)
   tabela2 <- tabela2 %>% mutate(LETO = CETRTLETJE %>% strapplyc("^([0-9]+)") %>%
                                   unlist() %>% parse_number(),
@@ -51,8 +51,7 @@ uvozi.tabela2 <- function(){
 }
 tabela2 <- uvozi.tabela2()
 
-tabela2.zdruzena <- tabela2 %>% group_by(LETO, `DOHODKOVNI_RAZRED`, `VRSTA_POTOVANJA`) %>%
-  summarise(SKUPAJ = sum(MERITEV))
+
 
 #Tabela 3: Zasebna potovanja po destinaciji in nastanitvenem objektu
 uvozi.tabela3 <- function(){
@@ -77,11 +76,7 @@ uvozi.tabela3 <- function(){
 }
 tabela3 <- uvozi.tabela3()
 
-tabela3.stevilo <- tabela3 %>% filter(VRSTA_MERITVE %in% c("Potovanja (v 1000)",
-                                                           "Prenočitve (v 1000)"))
 
-tabela3.zdruzena <- tabela3 %>% group_by(LETO, `DESTINACIJA`, `VRSTA_NASTANITVE`, `VRSTA_MERITVE`) %>%
-  summarise(SKUPAJ = sum(MERITEV))
 
 #Tabela 4: Zasebna potovanja po destinaciji in prevoznem sredstvu
 uvozi.tabela4 <- function(){
@@ -105,8 +100,6 @@ uvozi.tabela4 <- function(){
 }
 tabela4 <- uvozi.tabela4()
 
-tabela4.zdruzena <- tabela4 %>% group_by(LETO, `DESTINACIJA`, `VRSTA_PREVOZA`, `VRSTA_MERITVE`) %>%
-  summarise(SKUPAJ = sum(MERITEV))
 
 
 
@@ -136,6 +129,18 @@ uvozi.tabela5 <- function(){
   tabela5 <- tabela5[c(3,1,2,4)]
   tabela5 <- tabela5 %>% drop_na(1:4)
   tabela5$LETO <- tabela5$LETO %>% parse_integer()
+  tabela5$DRZAVA_POTOVANJA <- gsub("Hong Kong, China", "China", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Korea, Republic of","Republic of Korea", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Mauritius", "Mauritania", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Moldova, Republic of", "Moldova", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Tanzania, United Republic of", "Tanzania", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("The Former Yugoslav Republic of Macedonia", "Macedonia", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("United States of America", "United States", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Iran, Islamic Republic of", "Iran", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Macao, China", "China", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Venezuela, Bolivarian Republic of", "Venezuela", tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Dominica" , "Dominican Republic" , tabela5$DRZAVA_POTOVANJA)
+  tabela5$DRZAVA_POTOVANJA <- gsub("Bolivia, Plurinational State of" , "Bolivia" , tabela5$DRZAVA_POTOVANJA)
   return(tabela5)
 }
 

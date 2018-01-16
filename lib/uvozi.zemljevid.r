@@ -6,6 +6,7 @@ library(ggmap)
 library(ggvis)
 library(rgeos)
 library(RColorBrewer)
+library(scales)
 gpclibPermit()
 
 

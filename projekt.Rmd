@@ -7,7 +7,7 @@ output:
     includes:
       in_header: lib/styles.sty
     latex_engine: xelatex
-runtime: shiny
+
 ---
 
 ```{r setup, echo=FALSE, results='hide', message=FALSE}
@@ -19,44 +19,66 @@ runtime: shiny
 source("lib/libraries.r", encoding = "UTF-8")
 ```
 
-# Izbira teme
+# Analiza potovanj prebivalcev Slovenije
 
-Analiza potovanj prebivalcev Slovenije
+
+Za projekt sem si izbral analizo potovanj prebivalcev Slovenije v letih 2006 do 2016. Ker tudi sam veliko potujem, mi je tema blizu, zato me je zanimalo, kako, kam in v kakšnem finančnem okvirju potujejo drugi. Pri analizi podatkov potovanjse bom osredotočil predvsem na število ljudi, ki se odloči za potovanje, finance namenjene za nastanitev in transport, odločitev za potovanje glede na neto dohodek ter odločitev za potovanje glede na starost.
+Zanimala me bo predvsem razlika v strukturi potovanj v predkriznem, kriznem in v današnjem (lahko rečem pokriznem) času. S tem želim napovedati, katere destinacije so, oziromajo bojo zmeraj bolj priljubljene.
 
 ***
 
 # Obdelava, uvoz in čiščenje podatkov
 
-```{r uvoz, echo=FALSE, message=FALSE}
+```{r uvoz, echo=FALSE, message=FALSE, warning=FALSE}
 source("uvoz/uvoz.r", encoding = "UTF-8")
 ```
 
-Uvozili smo podatke o značilnostih potovanj prebivalcev Slovenije v obliki CSV s statističnega urada ter v obliki XLSX World Tourism Organisation. Podatke imamo v petih razpredelnicah v obliki *tidy data*.
 
-1. `druzine` - podatki o družinah za vsako občino
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `velikost.druzine` - spremenljivka: število otrok v družini (število: 1, 2, 3 ali 4, kjer zadnja vrednost pomeni 4 ali več),
-  - `stevilo.druzin` - meritev: število družin z ustreznim številom otrok v ustrezni občini (število).
+Podatke sem uvozil is strani Statističnega urada republike Slovenije in strani World Tourism Organization v obliki CSV in XLSX. Podatki so v petih tabelah v obliki *tidy data*.
 
-2. `obcine` - podatki o občinah
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `povrsina` - meritev: površina občine v km$^2$ (število),
-  - `prebivalci` - meritev: prebivalstvo občine (število),
-  - `gostota` - meritev: število prebivalcev na km$^2$ (število),
-  - `naselja` - meritev: število naselij v občini (število),
-  - `ustanovitev` - meritev: leto ustanovitve občine (število),
-  - `pokrajina` - meritev: pokrajina, ki ji občina pripada (neurejen faktor),
-  - `regija` - meritev: regija, ki ji občina pripada (neurejen faktor),
-  - `odcepitev` - meritev: podatki o občinah, od katerih se je občina odcepila (besedilo).
+1. `Tabela1` - podatki o prebivalcih Slovenije po udeleženosti na potovanjih po starosti
+  - `leto` - spremenljivka: leto potovanj (celo število)
+  - `četrtletje` - spremenljivka: številka četrtletja (celo število)
+  - `starost` - spremenljivka: razdeljeno na starosti ljudi (15-24, 25-44, 45-64, 65+) (besedilo)
+  - `vrsta potovanja` - spremenljivka: zasebno ali turistično potovanje (besedilo)
+  - `meritev` - meritev: število ljudi posamezne kategorije udeleženo na potovanjih (število)
 
-**Opomba**: da bi razpredelnica `obcine` res bila v obliki *tidy data*, bi morali odstraniti stolpec `gostota` (saj je izpeljan iz stolpcev `povrsina` in `prebivalci`), podatke o pokrajinah pa bi morali premakniti v drugo razpredelnico, saj nekatere občine pripadajo dvema pokrajinama. Podobno bi morali narediti tudi s stolpcem `odcepitev`.
 
-Spodnji graf prikazuje porazdelitev števila naselij v občinah.
+2. `Tabela2` - podatki o prebivalcih Slovenije po udeleženosti na potovanjih po mesečnem dohodku
+  - `leto` - spremenljivka: leto potovanj (celo število)
+  - `četrtletje` - spremenljivka: številka četrtletja (celo število)
+  - `dohodkovni razred` - spremenljivka: število potovanj ljudi iz določenega dohodkovnega razreda (1.,2.,3.,4.kvartil) (besedilo)
+  - `vrsta potovanja` - spremenljivka: zasebno ali turistično potovanje (besedilo)
+  - `meritev` - meritev: število ljudi posamezne kategorije udeleženo na potovanjih (število)
+  
 
-```{r histogram, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Histogram števila naselij v občinah'}
-ggplot(obcine, aes(x = naselja)) + geom_histogram() +
-  ggtitle("Pogostost števila naselij") + xlab("Število naselij") + ylab("Število občin")
-```
+3. `Tabela3` - podatki o zasebnih potovanjih po destinaciji in nastanitvenem objektu
+  - `leto` - spremenljivka: leto potovanj (celo število)
+  - `četrtletje` - spremenljivka: številka četrtletja (celo število)
+  - `destinacija` - spremenljivka: potovanja v tujino/po Sloveniji (besedilo)
+  - `vrsta nastanitve` - spremenljivka: nastanitev v hotelu, kampu, lastno počitniško bivališče ali pri sorodnikih (besedilo)
+  - `vrsta meritve` - spremenljivka: merjenje glede na prenočitve (v 1000), povprečno število nočitev, potovanja (v 1000) in povprečni izdatki na nočitev (EUR) (besedilo)
+  - `meritev` - meritev: odvisno od `vrste meritve` (lahko EUR, število nočitev, število potovanj)
+  
+
+4. `Tabela4` - podatki o zasebnih potovanjih po destinaciji in prevoznem sredstvu  
+  - `leto` - spremenljivka: leto potovanj (celo število)
+  - `četrtletje` - spremenljivka: številka četrtletja (celo število)
+  - `destinacija` - spremenljivka: potovanja v tujino/po Sloveniji (besedilo)
+  - `vrsta prevoza` - spremenljivka: prevoz z avtomobilom, letalom, avtobusom, drugo (besedilo)
+  - `vrsta meritve` - spremenljivka: merjenje glede na prenočitve (v 1000), povprečno število nočitev, potovanja (v 1000) in povprečni izdatki na nočitev (EUR) (besedilo)
+  - `meritev` - meritev: odvisno od `vrste meritve` (lahko EUR, število nočitev, število potovanj)
+
+
+5. `Tabela5` - podatki o številu potovanj v posamezne države
+  - `leto` - spremenljivka: leto potovanj (celo število)
+  - `država potovanja` - spremenljivka: (besedilo)
+  - `kratica` - spremenljivka: (besedilo)
+  - `število potovanj` - meritev: (število)
+
+
+**Opomba**: V `Tabela3` in `Tabela4` so podatki o povprečnem številu nočitev in povprečnih izdatkih na nočitev, kateri niso v *tidy data*. V kratkem bo to popravljeno. 
+
 
 ***
 
@@ -66,37 +88,18 @@ ggplot(obcine, aes(x = naselja)) + geom_histogram() +
 source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
 ```
 
-Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
+Pri analizi potovanj v zadnjih letih sem opazil, da si ljudje upajo potovati tudi malo dlje od Evrope. To sem nekako predvideval, saj naj bi bili po gospodarskih indikatorjih že iz krize. Prebivalci Slovenije so tako posegli tudi po bolj oddaljenih krajih. To je lepo prikazano na zemljevidu, kjer se vidi veliko število potovanj v kraje širom sveta.
 
-```{r zemljevid, echo=FALSE, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
-ggplot() + geom_polygon(data = left_join(zemljevid, povprecja, by = c("OB_UIME" = "obcina")),
-                        aes(x = long, y = lat, group = group, fill = povprecje)) +
-  ggtitle("Povprečno število otrok v družini") + xlab("") + ylab("") +
-  guides(fill = guide_colorbar(title = "Povprečje"))
+
+```{r graf.potovanja.2015, echo=FALSE, message=FALSE, warning=FALSE}
+graf.potovanja.2015
 ```
 
-***
 
-# Napredna analiza podatkov
 
-```{r analiza, echo=FALSE, message=FALSE}
-source("analiza/analiza.r", encoding = "UTF-8")
-```
 
-Spodnji graf prikazuje povezavo med številom naselij in površino občine.
 
-```{r graf, echo=FALSE, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'}
-ggplot(inner_join(obcine, data.frame(obcina = names(skupine),
-                                     skupina = factor(skupine)), by = "obcina")
-, aes(x = povrsina, y = naselja, color = skupina, size = prebivalci/1000)) + geom_point() +
-  ggtitle("Število naselij glede na površino občine") +
-  xlab(expression("Površina (km"^2 * ")")) + ylab("Št. naselij") +
-  guides(color = guide_legend(title = "Skupina"),
-         size = guide_legend(title = "Prebivalci (* 1000)"))
-```
 
-***
 
-```{r shiny, echo = FALSE}
-shinyAppDir("shiny", options=list(width="100%", height=600))
-```
+
+
