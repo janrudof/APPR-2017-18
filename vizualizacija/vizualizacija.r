@@ -17,7 +17,8 @@ graf.potovanja.2015 <- ggplot() + aes(x = long, y = lat, group = group,
                  summarise(STEVILO_POTOVANJ = sum(STEVILO_POTOVANJ)) %>%
                  right_join(zemljevid.tabela, by = c("DRZAVA_POTOVANJA" = "NAME_LONG")), color = "black") +
   guides(fill = guide_colorbar(title = "STEVILO POTOVANJ")) + 
-  scale_fill_gradient(trans = "log", breaks = 10^seq(0, 6, 2), labels = point)
+  scale_fill_gradient(trans = "log", breaks = 10^seq(0, 6, 2), labels = point) +
+  coord_cartesian(xlim = c(-170,170), ylim= c(-55, 80))
 
 #GRAFI
 
@@ -25,25 +26,74 @@ graf.potovanja.2015 <- ggplot() + aes(x = long, y = lat, group = group,
 tabela1.zdruzena <- tabela1 %>% group_by(LETO, `STAROST`, `VRSTA_POTOVANJA`) %>%
   summarise(SKUPAJ = sum(MERITEV))
 
-graf1.1 <- ggplot(tabela1.zdruzena %>% filter(STAROST == "15-24", VRSTA_POTOVANJA =="Sli na zasebno potovanje")) + aes(x = LETO, y = SKUPAJ) + geom_col()
-graf1.2 <- ggplot(tabela1.zdruzena %>% filter(STAROST == "25-44", VRSTA_POTOVANJA =="Sli na zasebno potovanje")) + aes(x = LETO, y = SKUPAJ) + geom_line(color = "blue")
-graf1.3 <- ggplot(tabela1.zdruzena %>% filter(STAROST == "45-64", VRSTA_POTOVANJA =="Sli na zasebno potovanje")) + aes(x = LETO, y = SKUPAJ) + geom_line(color = "blue")
-graf1.4 <- ggplot(tabela1.zdruzena %>% filter(STAROST == "65 +", VRSTA_POTOVANJA =="Sli na zasebno potovanje")) + aes(x = LETO, y = SKUPAJ) + geom_line(color = "blue")
-
 #Potovanja glede na dohodkovni razred
 tabela2.zdruzena <- tabela2 %>% group_by(LETO, `DOHODKOVNI_RAZRED`, `VRSTA_POTOVANJA`) %>%
   summarise(SKUPAJ = sum(MERITEV))
-
-graf2.1 <- ggplot(tabela2.zdruzena %>% filter(DOHODKOVNI_RAZRED == "1. kvartil", VRSTA_POTOVANJA == "Sli na zasebno potovanje")) + aes(x = LETO, y = SKUPAJ) + geom_line(color = "red")
-graf2.2 <- ggplot(tabela2.zdruzena %>% filter(DOHODKOVNI_RAZRED == "2. kvartil", VRSTA_POTOVANJA == "Sli na zasebno potovanje")) + aes(x = LETO, y = SKUPAJ) + geom_line(color = "red")
-graf2.3 <- ggplot(tabela2.zdruzena %>% filter(DOHODKOVNI_RAZRED == "3. kvartil", VRSTA_POTOVANJA == "Sli na zasebno potovanje")) + aes(x = LETO, y = SKUPAJ) + geom_line(color = "red")
-graf2.4 <- ggplot(tabela2.zdruzena %>% filter(DOHODKOVNI_RAZRED == "4. kvartil", VRSTA_POTOVANJA == "Sli na zasebno potovanje")) + aes(x = LETO, y = SKUPAJ) + geom_line(color = "red")
 
 #Potovanja glede na nastanitveni objekt
 tabela3.zdruzena <- tabela3 %>% group_by(LETO, `DESTINACIJA`, `VRSTA_NASTANITVE`, `VRSTA_MERITVE`) %>%
   summarise(SKUPAJ = sum(MERITEV))
 
+graf3.1 <- ggplot(tabela3.zdruzena %>% filter(LETO == 2007, DESTINACIJA == "Tujina", VRSTA_MERITVE == "Potovanja (v 1000)")) +
+  aes(x= VRSTA_NASTANITVE, y = SKUPAJ) +
+  geom_col() +
+  ggtitle("Potovanja glede na vrsto \nnastanitve leta 2007") +
+  ylab("Število nastanitev (v 1000)") +
+  xlab("Vrsta nastanitve") +
+  theme_bw()
+
+
+
+graf3.2 <- ggplot(tabela3.zdruzena %>% filter(LETO == 2009, DESTINACIJA == "Tujina", VRSTA_MERITVE == "Potovanja (v 1000)")) +
+  aes(x= VRSTA_NASTANITVE, y = SKUPAJ) +
+  geom_col() +
+  ggtitle("Potovanja glede na vrsto \nnastanitve leta 2009") +
+  ylab("Število nastanitev (v 1000)") +
+  xlab("Vrsta nastanitve") +
+  theme_bw()
+
+
+
+graf3.3 <- ggplot(tabela3.zdruzena %>% filter(LETO == 2016, DESTINACIJA == "Tujina", VRSTA_MERITVE == "Potovanja (v 1000)")) +
+  aes(x= VRSTA_NASTANITVE, y = SKUPAJ) +
+  geom_col() +
+  ggtitle("Potovanja glede na vrsto \nnastanitve leta 2016") +
+  ylab("Število nastanitev (v 1000)") +
+  xlab("Vrsta nastanitve") +
+  theme_bw()
+
+
+skupek.grafov3 <- ggarrange(graf3.1, graf3.2, graf3.3, ncol = 2, nrow=2)
+
 #Potovanja glede na prevozno sredstvo
 tabela4.zdruzena <- tabela4 %>% group_by(LETO, `DESTINACIJA`, `VRSTA_PREVOZA`, `VRSTA_MERITVE`) %>%
   summarise(SKUPAJ = sum(MERITEV))
+
+graf4.1 <- ggplot(tabela4.zdruzena %>% filter(LETO == 2007, DESTINACIJA == "Tujina", VRSTA_MERITVE == "Potovanja (v 1000)")) +
+  aes(x= VRSTA_PREVOZA, y = SKUPAJ) +
+  geom_col() +
+  ggtitle("Potovanja glede na prevozno sredstvo \nleta 2007") +
+  ylab("Število prevozov (v 1000)") +
+  xlab("Prevozno sredstvo") +
+  theme_bw()
+
+
+graf4.2 <- ggplot(tabela4.zdruzena %>% filter(LETO == 2009, DESTINACIJA == "Tujina", VRSTA_MERITVE == "Potovanja (v 1000)")) +
+  aes(x= VRSTA_PREVOZA, y = SKUPAJ) +
+  geom_col() +
+  ggtitle("Potovanja glede na prevozno sredstvo \nleta 2009") +
+  ylab("Število prevozov (v 1000)") +
+  xlab("Prevozno sredstvo") +
+  theme_bw()
+
+
+graf4.3 <- ggplot(tabela4.zdruzena %>% filter(LETO == 2016, DESTINACIJA == "Tujina", VRSTA_MERITVE == "Potovanja (v 1000)")) +
+  aes(x= VRSTA_PREVOZA, y = SKUPAJ) +
+  geom_col() +
+  ggtitle("Potovanja glede na prevozno sredstvo \nleta 2016") +
+  ylab("Število prevozov (v 1000)") +
+  xlab("Prevozno sredstvo") +
+  theme_bw()
+
+skupek.grafov4 <- ggarrange(graf4.1, graf4.2, graf4.3, ncol = 2, nrow=2, align = "hv")
 

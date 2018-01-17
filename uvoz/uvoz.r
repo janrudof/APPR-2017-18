@@ -63,7 +63,6 @@ uvozi.tabela3 <- function(){
                        n_max = 1094,
                        na=c(""," ", "-","N"))
   tabela3 <- tabela3 %>% fill(1:3)
-  tabela3$MERITEV <- tabela3$MERITEV %>% parse_number()
   tabela3 <- tabela3[c(4,1,2,3,5)]
   tabela3 <- tabela3 %>% fill(1:5) %>% drop_na(1)
   tabela3 <- tabela3 %>% arrange(CETRTLETJE)
@@ -71,6 +70,13 @@ uvozi.tabela3 <- function(){
                                   unlist() %>% parse_number(),
                                 CETRTLETJE = CETRTLETJE %>% strapplyc("([0-9])$") %>%
                                   unlist() %>% parse_number())
+  tabela3$MERITEV <- tabela3$MERITEV %>% parse_number()
+  tabela3$LETO <- tabela3$LETO %>% parse_integer()
+  tabela3$VRSTA_NASTANITVE <- gsub("Hoteli in podobni objekti", "Hoteli", tabela3$VRSTA_NASTANITVE)
+  tabela3$VRSTA_NASTANITVE <- gsub("Druge najete nastanitvene zmogljivosti", "Ostalo (najem)", tabela3$VRSTA_NASTANITVE)
+  tabela3$VRSTA_NASTANITVE <- gsub("Pri sorodnikih ali prijateljih", "Pri znancih", tabela3$VRSTA_NASTANITVE)
+  tabela3$VRSTA_NASTANITVE <- gsub("Druge nenajete nastanitvene zmogljivosti", "Ostalo (brez najema)", tabela3$VRSTA_NASTANITVE)
+  tabela3$VRSTA_NASTANITVE <- gsub("Lastno po.itni.ko bivali..e", "Lastna bivalisca" , tabela3$VRSTA_NASTANITVE)
   tabela3 <- tabela3[c(6,1,2,3,4,5)]
   return(tabela3)
 }
@@ -96,6 +102,7 @@ uvozi.tabela4 <- function(){
                                   unlist() %>% parse_number())
   tabela4$MERITEV <- tabela4$MERITEV %>% parse_number()
   tabela4 <- tabela4[c(6,4,1,2,3,5)]
+  tabela4$VRSTA_PREVOZA <- gsub("Osebno cestno motorno vozilo","Avto",tabela4$VRSTA_PREVOZA)
   return(tabela4)
 }
 tabela4 <- uvozi.tabela4()

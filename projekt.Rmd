@@ -88,6 +88,20 @@ Podatke sem uvozil is strani Statističnega urada republike Slovenije in strani 
 source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
 ```
 
+Kot sem že povedal prej, se bom osredotočil na primerjanje med tremi različnimi obdobji (prekrizni, krizni in "pokrizni" čas), s katerimi bi lahko ugotovil značilnosti potovanj v posameznem obdobju in tako lahko nekako napovedal težnje po potovanjih v prihodnje. Hitro sem opazil, da je v času krize (okoli leta 2008 do 2012) bilo namenjenega potovanjem manj denarja kot pa v zadnjih letih.
+
+Na prvih treh grafih je razvidno, da se planiranje potovanja prilagaja glede na finančno stanje. V kriznem času je zato nastanitev v dražjih nastanitvenih kompleksih (kot so hoteli) manj pogosto kot pa nastanitve v kampih oziroma kar bivanje pri znancih. V času "po" krizi, pa se razmerje rahlo spremeni, saj se uporaba hotelov poveča. Slednje verjetno lahko pripisujemo tudi vedno bolj dostopnim cenam hotelov skozi čas.
+
+```{r skupek.grafov3, echo=FALSE, message=FALSE, warning=FALSE}
+skupek.grafov3
+```
+
+Podobno analizo kot pri nastanitvah sem želel odkriti pri prevoznem sredstvu. Mislil sem, da se bo glede na finančno stanje spremenila odločitev ljudi glede prevoznega sredstva, vendar je iz grafov jasno razvidno, da je razmerje precej podobno. Ljudje se odpravljajo na (verjetno) krajša potovanja, zato je v porastu uporaba avtomobila. Čeprav so letalske karte cenovno bolj dostopne, pa se za uporabo letala odloči le majhno število ljudi več. 
+
+```{r skupek.grafov4, echo=FALSE, message=FALSE, warning=FALSE}
+skupek.grafov4
+```
+
 Pri analizi potovanj v zadnjih letih sem opazil, da si ljudje upajo potovati tudi malo dlje od Evrope. To sem nekako predvideval, saj naj bi bili po gospodarskih indikatorjih že iz krize. Prebivalci Slovenije so tako posegli tudi po bolj oddaljenih krajih. To je lepo prikazano na zemljevidu, kjer se vidi veliko število potovanj v kraje širom sveta.
 
 

@@ -4,11 +4,12 @@ library(readr)
 library(rvest)
 library(gsubfn)
 library(ggplot2)
-library(reshape)
+library(reshape2)
 library(shiny)
 library(tidyr)
 library(readxl)
 library(yaml)
+library(ggpubr)
 
 
 # Uvozimo funkcije za pobiranje in uvoz zemljevida.
