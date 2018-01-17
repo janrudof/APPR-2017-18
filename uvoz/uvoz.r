@@ -60,7 +60,7 @@ uvozi.tabela3 <- function(){
                        locale = locale(encoding = "cp1250"),
                        col_names = stolpci3,
                        skip = 2,
-                       n_max = 1094,
+                       n_max = 2174,
                        na=c(""," ", "-","N"))
   tabela3 <- tabela3 %>% fill(1:3)
   tabela3 <- tabela3[c(4,1,2,3,5)]
@@ -73,10 +73,11 @@ uvozi.tabela3 <- function(){
   tabela3$MERITEV <- tabela3$MERITEV %>% parse_number()
   tabela3$LETO <- tabela3$LETO %>% parse_integer()
   tabela3$VRSTA_NASTANITVE <- gsub("Hoteli in podobni objekti", "Hoteli", tabela3$VRSTA_NASTANITVE)
-  tabela3$VRSTA_NASTANITVE <- gsub("Druge najete nastanitvene zmogljivosti", "Ostalo (najem)", tabela3$VRSTA_NASTANITVE)
+  tabela3$VRSTA_NASTANITVE <- gsub("Druge najete nastanitvene zmogljivosti", "Ostalo", tabela3$VRSTA_NASTANITVE)
   tabela3$VRSTA_NASTANITVE <- gsub("Pri sorodnikih ali prijateljih", "Pri znancih", tabela3$VRSTA_NASTANITVE)
-  tabela3$VRSTA_NASTANITVE <- gsub("Druge nenajete nastanitvene zmogljivosti", "Ostalo (brez najema)", tabela3$VRSTA_NASTANITVE)
+  tabela3$VRSTA_NASTANITVE <- gsub("Druge nenajete nastanitvene zmogljivosti", "Ostalo", tabela3$VRSTA_NASTANITVE)
   tabela3$VRSTA_NASTANITVE <- gsub("Lastno po.itni.ko bivali..e", "Lastna bivalisca" , tabela3$VRSTA_NASTANITVE)
+  tabela3$VRSTA_NASTANITVE <- tabela3$VRSTA_NASTANITVE %>% parse_character()
   tabela3 <- tabela3[c(6,1,2,3,4,5)]
   return(tabela3)
 }

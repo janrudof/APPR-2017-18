@@ -72,7 +72,7 @@ tabela4.zdruzena <- tabela4 %>% group_by(LETO, `DESTINACIJA`, `VRSTA_PREVOZA`, `
 graf4.1 <- ggplot(tabela4.zdruzena %>% filter(LETO == 2007, DESTINACIJA == "Tujina", VRSTA_MERITVE == "Potovanja (v 1000)")) +
   aes(x= VRSTA_PREVOZA, y = SKUPAJ) +
   geom_col() +
-  ggtitle("Potovanja glede na prevozno sredstvo \nleta 2007") +
+  ggtitle("Potovanja glede na prevozno \nsredstvo leta 2007") +
   ylab("Število prevozov (v 1000)") +
   xlab("Prevozno sredstvo") +
   theme_bw()
@@ -81,7 +81,7 @@ graf4.1 <- ggplot(tabela4.zdruzena %>% filter(LETO == 2007, DESTINACIJA == "Tuji
 graf4.2 <- ggplot(tabela4.zdruzena %>% filter(LETO == 2009, DESTINACIJA == "Tujina", VRSTA_MERITVE == "Potovanja (v 1000)")) +
   aes(x= VRSTA_PREVOZA, y = SKUPAJ) +
   geom_col() +
-  ggtitle("Potovanja glede na prevozno sredstvo \nleta 2009") +
+  ggtitle("Potovanja glede na prevozno \nsredstvo leta 2009") +
   ylab("Število prevozov (v 1000)") +
   xlab("Prevozno sredstvo") +
   theme_bw()
@@ -90,7 +90,7 @@ graf4.2 <- ggplot(tabela4.zdruzena %>% filter(LETO == 2009, DESTINACIJA == "Tuji
 graf4.3 <- ggplot(tabela4.zdruzena %>% filter(LETO == 2016, DESTINACIJA == "Tujina", VRSTA_MERITVE == "Potovanja (v 1000)")) +
   aes(x= VRSTA_PREVOZA, y = SKUPAJ) +
   geom_col() +
-  ggtitle("Potovanja glede na prevozno sredstvo \nleta 2016") +
+  ggtitle("Potovanja glede na prevozno \nsredstvo leta 2016") +
   ylab("Število prevozov (v 1000)") +
   xlab("Prevozno sredstvo") +
   theme_bw()

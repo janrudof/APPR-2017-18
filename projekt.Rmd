@@ -22,7 +22,7 @@ source("lib/libraries.r", encoding = "UTF-8")
 # Analiza potovanj prebivalcev Slovenije
 
 
-Za projekt sem si izbral analizo potovanj prebivalcev Slovenije v letih 2006 do 2016. Ker tudi sam veliko potujem, mi je tema blizu, zato me je zanimalo, kako, kam in v kakšnem finančnem okvirju potujejo drugi. Pri analizi podatkov potovanjse bom osredotočil predvsem na število ljudi, ki se odloči za potovanje, finance namenjene za nastanitev in transport, odločitev za potovanje glede na neto dohodek ter odločitev za potovanje glede na starost.
+Za projekt sem si izbral analizo potovanj prebivalcev Slovenije v letih 2006 do 2016. Ker tudi sam veliko potujem, mi je tema blizu, zato me je zanimalo, kako, kam in v kakšnem finančnem okvirju potujejo drugi. Pri analizi podatkov potovanj se bom osredotočil predvsem na število ljudi, ki se odloči za potovanje, finance namenjene za nastanitev in transport, odločitev za potovanje glede na neto dohodek ter odločitev za potovanje glede na starost.
 Zanimala me bo predvsem razlika v strukturi potovanj v predkriznem, kriznem in v današnjem (lahko rečem pokriznem) času. S tem želim napovedati, katere destinacije so, oziromajo bojo zmeraj bolj priljubljene.
 
 ***
@@ -96,7 +96,7 @@ Na prvih treh grafih je razvidno, da se planiranje potovanja prilagaja glede na 
 skupek.grafov3
 ```
 
-Podobno analizo kot pri nastanitvah sem želel odkriti pri prevoznem sredstvu. Mislil sem, da se bo glede na finančno stanje spremenila odločitev ljudi glede prevoznega sredstva, vendar je iz grafov jasno razvidno, da je razmerje precej podobno. Ljudje se odpravljajo na (verjetno) krajša potovanja, zato je v porastu uporaba avtomobila. Čeprav so letalske karte cenovno bolj dostopne, pa se za uporabo letala odloči le majhno število ljudi več. 
+Podobno analizo kot pri nastanitvah sem želel odkriti pri prevoznem sredstvu. Mislil sem, da se bo glede na finančno stanje spremenila odločitev ljudi glede prevoznega sredstva, vendar je iz grafov jasno razvidno, da je razmerje precej podobno. Ljudje se odpravljajo na (verjetno) krajša potovanja, zato je v porastu uporaba avtomobila. Čeprav so letalske karte cenovno bolj dostopne, pa se za uporabo letala odloči le majhno število ljudi več. Kljub temu opazimo vidno porast potovanj v zadnjih letih.
 
 ```{r skupek.grafov4, echo=FALSE, message=FALSE, warning=FALSE}
 skupek.grafov4
