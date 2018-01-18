@@ -34,7 +34,7 @@ source("uvoz/uvoz.r", encoding = "UTF-8")
 ```
 
 
-Podatke sem uvozil is strani Statističnega urada republike Slovenije in strani World Tourism Organization v obliki CSV in XLSX. Podatki so v petih tabelah v obliki *tidy data*.
+Podatke sem uvozil is strani Statističnega urada republike Slovenije in strani World Tourism Organization v obliki CSV, XLSX in HTML. Podatki so v petih tabelah v obliki *tidy data*.
 
 1. `Tabela1` - podatki o prebivalcih Slovenije po udeleženosti na potovanjih po starosti
   - `leto` - spremenljivka: leto potovanj (celo število)
@@ -88,9 +88,19 @@ Podatke sem uvozil is strani Statističnega urada republike Slovenije in strani 
 source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
 ```
 
-Kot sem že povedal prej, se bom osredotočil na primerjanje med tremi različnimi obdobji (prekrizni, krizni in "pokrizni" čas), s katerimi bi lahko ugotovil značilnosti potovanj v posameznem obdobju in tako lahko nekako napovedal težnje po potovanjih v prihodnje. Hitro sem opazil, da je v času krize (okoli leta 2008 do 2012) bilo namenjenega potovanjem manj denarja kot pa v zadnjih letih.
+Kot sem že povedal prej, se bom osredotočil na primerjanje med tremi različnimi obdobji (prekrizni, krizni in "pokrizni" čas), s katerimi bi lahko ugotovil značilnosti potovanj v posameznem obdobju in tako lahko nekako napovedal težnje po potovanjih v prihodnje. Hitro sem opazil, da je v času krize (okoli leta 2008 do 2014) bilo namenjenega potovanjem manj denarja kot pa v zadnjih letih.
 
-Na prvih treh grafih je razvidno, da se planiranje potovanja prilagaja glede na finančno stanje. V kriznem času je zato nastanitev v dražjih nastanitvenih kompleksih (kot so hoteli) manj pogosto kot pa nastanitve v kampih oziroma kar bivanje pri znancih. V času "po" krizi, pa se razmerje rahlo spremeni, saj se uporaba hotelov poveča. Slednje verjetno lahko pripisujemo tudi vedno bolj dostopnim cenam hotelov skozi čas.
+### Potovanja glede na dohodek gospodinjstva
+
+Najprej sem opazil velike razlike v številu potovanj na ravni dohodkovne neenakosti. Premožnejši ljudje veliko več potujejo kot ljudje iz ostalih dohodkovnih razredov, kar je pričakovano, vendar me je presenetilo, da so ravno oni v času krize drastično zmanjšali prihodke za potovanja oziroma se preprosto niso več odločali za potovanja. Vse se lepo vidi iz grafa.
+
+```{r graf1, echo=FALSE, message=FALSE, warning=FALSE}
+graf1
+```
+
+### Potovanja glede na nastanitev in prevozno sredstvo 
+
+Na naslednjih treh grafih je razvidno, da se planiranje potovanja prilagaja glede na finančno stanje. V kriznem času je zato nastanitev v dražjih nastanitvenih kompleksih (kot so hoteli) manj pogosto kot pa nastanitve v kampih oziroma kar bivanje pri znancih. V času "po" krizi, pa se razmerje rahlo spremeni, saj se uporaba hotelov poveča. Slednje verjetno lahko pripisujemo tudi vedno bolj dostopnim cenam hotelov skozi čas.
 
 ```{r skupek.grafov3, echo=FALSE, message=FALSE, warning=FALSE}
 skupek.grafov3
@@ -101,6 +111,8 @@ Podobno analizo kot pri nastanitvah sem želel odkriti pri prevoznem sredstvu. M
 ```{r skupek.grafov4, echo=FALSE, message=FALSE, warning=FALSE}
 skupek.grafov4
 ```
+
+### Potovanja po državah
 
 Pri analizi potovanj v zadnjih letih sem opazil, da si ljudje upajo potovati tudi malo dlje od Evrope. To sem nekako predvideval, saj naj bi bili po gospodarskih indikatorjih že iz krize. Prebivalci Slovenije so tako posegli tudi po bolj oddaljenih krajih. To je lepo prikazano na zemljevidu, kjer se vidi veliko število potovanj v kraje širom sveta.
 

@@ -16,9 +16,10 @@ graf.potovanja.2015 <- ggplot() + aes(x = long, y = lat, group = group,
   geom_polygon(data = potovanja.2015 %>% group_by(DRZAVA_POTOVANJA) %>%
                  summarise(STEVILO_POTOVANJ = sum(STEVILO_POTOVANJ)) %>%
                  right_join(zemljevid.tabela, by = c("DRZAVA_POTOVANJA" = "NAME_LONG")), color = "black") +
-  guides(fill = guide_colorbar(title = "STEVILO POTOVANJ")) + 
+  guides(fill = guide_colorbar(title = "Število potovanj")) + 
   scale_fill_gradient(trans = "log", breaks = 10^seq(0, 6, 2), labels = point) +
-  coord_cartesian(xlim = c(-170,170), ylim= c(-55, 80))
+  coord_cartesian(xlim = c(-170,170), ylim= c(-55, 80)) +
+  ggtitle("Potovanja leta 2015")
 
 #GRAFI
 
@@ -26,17 +27,29 @@ graf.potovanja.2015 <- ggplot() + aes(x = long, y = lat, group = group,
 tabela1.zdruzena <- tabela1 %>% group_by(LETO, `STAROST`, `VRSTA_POTOVANJA`) %>%
   summarise(SKUPAJ = sum(MERITEV))
 
+
 #Potovanja glede na dohodkovni razred
 tabela2.zdruzena <- tabela2 %>% group_by(LETO, `DOHODKOVNI_RAZRED`, `VRSTA_POTOVANJA`) %>%
   summarise(SKUPAJ = sum(MERITEV))
+
+graf1 <- ggplot(tabela2.zdruzena %>% filter(VRSTA_POTOVANJA == "Sli na zasebno potovanje")) + 
+  aes(x = LETO, y= SKUPAJ, col = DOHODKOVNI_RAZRED) +
+  geom_line()+
+  xlab("Leto") +
+  ylab("Število potovanj (v 1000)") +
+  theme_bw() + 
+  ggtitle("Potovanja glede na dohodkovni razred")
+
+
 
 #Potovanja glede na nastanitveni objekt
 tabela3.zdruzena <- tabela3 %>% group_by(LETO, `DESTINACIJA`, `VRSTA_NASTANITVE`, `VRSTA_MERITVE`) %>%
   summarise(SKUPAJ = sum(MERITEV))
 
+
 graf3.1 <- ggplot(tabela3.zdruzena %>% filter(LETO == 2007, DESTINACIJA == "Tujina", VRSTA_MERITVE == "Potovanja (v 1000)")) +
   aes(x= VRSTA_NASTANITVE, y = SKUPAJ) +
-  geom_col() +
+  geom_col(fill = "blue") +
   ggtitle("Potovanja glede na vrsto \nnastanitve leta 2007") +
   ylab("Število nastanitev (v 1000)") +
   xlab("Vrsta nastanitve") +
@@ -46,7 +59,7 @@ graf3.1 <- ggplot(tabela3.zdruzena %>% filter(LETO == 2007, DESTINACIJA == "Tuji
 
 graf3.2 <- ggplot(tabela3.zdruzena %>% filter(LETO == 2009, DESTINACIJA == "Tujina", VRSTA_MERITVE == "Potovanja (v 1000)")) +
   aes(x= VRSTA_NASTANITVE, y = SKUPAJ) +
-  geom_col() +
+  geom_col(fill = "blue") +
   ggtitle("Potovanja glede na vrsto \nnastanitve leta 2009") +
   ylab("Število nastanitev (v 1000)") +
   xlab("Vrsta nastanitve") +
@@ -56,7 +69,7 @@ graf3.2 <- ggplot(tabela3.zdruzena %>% filter(LETO == 2009, DESTINACIJA == "Tuji
 
 graf3.3 <- ggplot(tabela3.zdruzena %>% filter(LETO == 2016, DESTINACIJA == "Tujina", VRSTA_MERITVE == "Potovanja (v 1000)")) +
   aes(x= VRSTA_NASTANITVE, y = SKUPAJ) +
-  geom_col() +
+  geom_col(fill = "blue") +
   ggtitle("Potovanja glede na vrsto \nnastanitve leta 2016") +
   ylab("Število nastanitev (v 1000)") +
   xlab("Vrsta nastanitve") +
@@ -71,7 +84,7 @@ tabela4.zdruzena <- tabela4 %>% group_by(LETO, `DESTINACIJA`, `VRSTA_PREVOZA`, `
 
 graf4.1 <- ggplot(tabela4.zdruzena %>% filter(LETO == 2007, DESTINACIJA == "Tujina", VRSTA_MERITVE == "Potovanja (v 1000)")) +
   aes(x= VRSTA_PREVOZA, y = SKUPAJ) +
-  geom_col() +
+  geom_col(fill = "blue") +
   ggtitle("Potovanja glede na prevozno \nsredstvo leta 2007") +
   ylab("Število prevozov (v 1000)") +
   xlab("Prevozno sredstvo") +
@@ -80,7 +93,7 @@ graf4.1 <- ggplot(tabela4.zdruzena %>% filter(LETO == 2007, DESTINACIJA == "Tuji
 
 graf4.2 <- ggplot(tabela4.zdruzena %>% filter(LETO == 2009, DESTINACIJA == "Tujina", VRSTA_MERITVE == "Potovanja (v 1000)")) +
   aes(x= VRSTA_PREVOZA, y = SKUPAJ) +
-  geom_col() +
+  geom_col(fill = "blue") +
   ggtitle("Potovanja glede na prevozno \nsredstvo leta 2009") +
   ylab("Število prevozov (v 1000)") +
   xlab("Prevozno sredstvo") +
@@ -89,7 +102,7 @@ graf4.2 <- ggplot(tabela4.zdruzena %>% filter(LETO == 2009, DESTINACIJA == "Tuji
 
 graf4.3 <- ggplot(tabela4.zdruzena %>% filter(LETO == 2016, DESTINACIJA == "Tujina", VRSTA_MERITVE == "Potovanja (v 1000)")) +
   aes(x= VRSTA_PREVOZA, y = SKUPAJ) +
-  geom_col() +
+  geom_col(fill = "blue") +
   ggtitle("Potovanja glede na prevozno \nsredstvo leta 2016") +
   ylab("Število prevozov (v 1000)") +
   xlab("Prevozno sredstvo") +
