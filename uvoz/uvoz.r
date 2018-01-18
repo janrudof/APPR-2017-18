@@ -76,7 +76,7 @@ uvozi.tabela3 <- function(){
   tabela3$VRSTA_NASTANITVE <- gsub("Druge najete nastanitvene zmogljivosti", "Ostalo", tabela3$VRSTA_NASTANITVE)
   tabela3$VRSTA_NASTANITVE <- gsub("Pri sorodnikih ali prijateljih", "Pri znancih", tabela3$VRSTA_NASTANITVE)
   tabela3$VRSTA_NASTANITVE <- gsub("Druge nenajete nastanitvene zmogljivosti", "Ostalo", tabela3$VRSTA_NASTANITVE)
-  tabela3$VRSTA_NASTANITVE <- gsub("Lastno po.itni.ko bivali..e", "Lastna bivalisca" , tabela3$VRSTA_NASTANITVE)
+  tabela3$VRSTA_NASTANITVE <- gsub("Lastno po.itni.ko bivali..e", "Lastna \nbivalisca" , tabela3$VRSTA_NASTANITVE)
   tabela3$VRSTA_NASTANITVE <- tabela3$VRSTA_NASTANITVE %>% parse_character()
   tabela3 <- tabela3[c(6,1,2,3,4,5)]
   return(tabela3)
