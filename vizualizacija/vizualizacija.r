@@ -6,9 +6,11 @@ zemljevid.sveta <- uvozi.zemljevid("http://www.naturalearthdata.com/http//www.na
                                    "ne_110m_admin_0_countries", encoding= "UTF-8") 
 zemljevid.tabela <- pretvori.zemljevid(zemljevid.sveta)
 
+zemljevid.tabela2 <- pretvori.zemljevid(zemljevid.sveta) %>% filter(CONTINENT == "Europe" | SOVEREIGNT %in% c("Turkey", "Cyprus"), long > -30)
+
 point <- format_format(big.mark = ".", decimal.mark = ",", scientific = FALSE)
 
-#Potovanja prebivalcev Slovenije leta 2015
+#Potovanja prebivalcev Slovenije leta 2015 po svetu
 potovanja.2015 <- tabela5 %>% filter(LETO == 2015)
 
 graf.potovanja.2015 <- ggplot() + aes(x = long, y = lat, group = group,
@@ -17,9 +19,23 @@ graf.potovanja.2015 <- ggplot() + aes(x = long, y = lat, group = group,
                  summarise(STEVILO_POTOVANJ = sum(STEVILO_POTOVANJ)) %>%
                  right_join(zemljevid.tabela, by = c("DRZAVA_POTOVANJA" = "NAME_LONG")), color = "black") +
   guides(fill = guide_colorbar(title = "Število potovanj")) + 
-  scale_fill_gradient(trans = "log", breaks = 10^seq(0, 6, 2), labels = point) +
+  scale_fill_gradientn(trans = "log", breaks = 10^seq(0, 6, 2), labels = point, colours = heat.colors(15)) +
   coord_cartesian(xlim = c(-170,170), ylim= c(-55, 80)) +
-  ggtitle("Potovanja leta 2015")
+  ggtitle("Potovanja leta 2015 po svetu")
+
+#Potovanja prebivalcev Slovenije leta 2015 po Evropi
+potovanja.evropa.2015 <- tabela5 %>% filter(LETO == 2015)
+
+graf.potovanja.evropa.2015 <- ggplot() + aes(x = long, y = lat, group = group,
+                                            fill = STEVILO_POTOVANJ) +
+  geom_polygon(data = potovanja.evropa.2015 %>% group_by(DRZAVA_POTOVANJA) %>%
+                 summarise(STEVILO_POTOVANJ = sum(STEVILO_POTOVANJ)) %>%
+                 right_join(zemljevid.tabela2, by = c("DRZAVA_POTOVANJA" = "NAME_LONG")), color = "black") +
+  guides(fill = guide_colorbar(title = "Število potovanj")) + 
+  scale_fill_gradientn(trans = "log", breaks = 10^seq(0, 6, 2), labels = point, colours = heat.colors(15)) +
+  coord_cartesian(xlim = c(-28, 55), ylim = c(33, 73)) +
+  ggtitle("Potovanja leta 2015 po Evropi")
+
 
 #GRAFI
 
