@@ -43,12 +43,19 @@ graf.potovanja.evropa.2015 <- ggplot() + aes(x = long, y = lat, group = group,
 tabela1.zdruzena <- tabela1 %>% group_by(LETO, `STAROST`, `VRSTA_POTOVANJA`) %>%
   summarise(SKUPAJ = sum(MERITEV))
 
+graf1 <- ggplot(tabela1.zdruzena %>% filter(VRSTA_POTOVANJA == "Sli na zasebno potovanje", STAROST != "Starost - SKUPAJ")) + 
+  aes(x = LETO, y= SKUPAJ, col = STAROST) +
+  geom_line()+
+  xlab("Leto") +
+  ylab("Število potovanj (v 1000)") +
+  theme_bw() + 
+  ggtitle("Potovanja glede na starostno skupino")
 
 #Potovanja glede na dohodkovni razred
 tabela2.zdruzena <- tabela2 %>% group_by(LETO, `DOHODKOVNI_RAZRED`, `VRSTA_POTOVANJA`) %>%
   summarise(SKUPAJ = sum(MERITEV))
 
-graf1 <- ggplot(tabela2.zdruzena %>% filter(VRSTA_POTOVANJA == "Sli na zasebno potovanje")) + 
+graf2 <- ggplot(tabela2.zdruzena %>% filter(VRSTA_POTOVANJA == "Sli na zasebno potovanje")) + 
   aes(x = LETO, y= SKUPAJ, col = DOHODKOVNI_RAZRED) +
   geom_line()+
   xlab("Leto") +
@@ -126,3 +133,11 @@ graf4.3 <- ggplot(tabela4.zdruzena %>% filter(LETO == 2016, DESTINACIJA == "Tuji
 
 skupek.grafov4 <- ggarrange(graf4.1, graf4.2, graf4.3, ncol = 2, nrow=2, align = "hv")
 
+#BDP Slovenije za pomoč pri interpretiranju ostalih podatkov
+
+graf6 <- ggplot(tabela6) + aes(x = LETO, y = BDP_v_milijonih) +
+  geom_col(fill = "green") +
+  ggtitle("BDP Slovenije") + 
+  ylab("BDP v milijonih evrov") +
+  xlab("Leto") +
+  theme_bw()

@@ -8,20 +8,18 @@ uvozi.tabela1 <- function(){
                        col_names=stolpci1,
                        skip = 2,
                        n_max = 455)
-  tabela1 <- tabela1[c(3,1,2,4)]
-  tabela1 <- tabela1 %>% fill(2:3)
-  tabela1 <- tabela1 %>% fill(1:4) %>% drop_na(1)
+  tabela1 <- tabela1 %>% fill(1:2)
+  tabela1 <- tabela1 %>% drop_na()
   tabela1 <- tabela1 %>% arrange(CETRTLETJE)
-  tabela1$VRSTA_POTOVANJA <- gsub(".li na zasebno potovanje", "Sli na zasebno potovanje", tabela1$VRSTA_POTOVANJA)
   tabela1 <- tabela1 %>% mutate(LETO = CETRTLETJE %>% strapplyc("^([0-9]+)") %>%
                                   unlist() %>% parse_number(),
                                 CETRTLETJE = CETRTLETJE %>% strapplyc("([0-9])$") %>%
                                   unlist() %>% parse_number())
   tabela1$MERITEV <- parse_number(tabela1$MERITEV)
   tabela1$LETO <- parse_integer(tabela1$LETO)
-  tabela1$STAROST <- parse_character(tabela1$STAROST)
-  tabela1$VRSTA_POTOVANJA <- parse_character(tabela1$VRSTA_POTOVANJA)
-  tabela1 <- tabela1[c(5,1,2,3,4)]
+  tabela1$VRSTA_POTOVANJA <- gsub(".li na zasebno potovanje", "Sli na zasebno potovanje", tabela1$VRSTA_POTOVANJA)
+  tabela1$VRSTA_POTOVANJA <- gsub(".li na turisti.no potovanje .zasebno in.ali poslovno.", "Sli na turisticno potovanje (zasebno in/ali poslovno)", tabela1$VRSTA_POTOVANJA)
+  tabela1 <- tabela1[c(5,3,1,2,4)]
   return(tabela1)
 }
 tabela1 <- uvozi.tabela1()
@@ -35,18 +33,20 @@ uvozi.tabela2 <- function(){
                        locale = locale(encoding = "cp1250"),
                        col_names = stolpci2,
                        skip = 2,
-                       n_max = 455)
-  tabela2 <- tabela2[c(3,1,2,4)]
-  tabela2 <- tabela2 %>% fill(2:3)
-  tabela2$MERITEV <- tabela2$MERITEV %>% parse_number()
-  tabela2 <- tabela2 %>% fill(2:4) %>% drop_na(1)
+                       n_max = 455, 
+                       na=c(""," ", "-","N"))
+  tabela2 <- tabela2 %>% fill(1:2)
+  tabela2 <- tabela2 %>% drop_na()
   tabela2 <- tabela2 %>% arrange(CETRTLETJE)
   tabela2 <- tabela2 %>% mutate(LETO = CETRTLETJE %>% strapplyc("^([0-9]+)") %>%
                                   unlist() %>% parse_number(),
                                 CETRTLETJE = CETRTLETJE %>% strapplyc("([0-9])$") %>%
                                   unlist() %>% parse_number())
-  tabela2 <- tabela2[c(5,1,2,3,4)]
   tabela2$VRSTA_POTOVANJA <- gsub(".li na zasebno potovanje", "Sli na zasebno potovanje", tabela2$VRSTA_POTOVANJA)
+  tabela2$VRSTA_POTOVANJA <- gsub(".li na turisti.no potovanje .zasebno in.ali poslovno.", "Sli na turisticno potovanje (zasebno in/ali poslovno)", tabela2$VRSTA_POTOVANJA)
+  tabela2$MERITEV <- parse_number(tabela2$MERITEV)
+  tabela2$LETO <- parse_integer(tabela2$LETO)
+  tabela2 <- tabela2[c(5,3,1,2,4)]
   return(tabela2)
 }
 tabela2 <- uvozi.tabela2()
@@ -63,8 +63,7 @@ uvozi.tabela3 <- function(){
                        n_max = 2174,
                        na=c(""," ", "-","N"))
   tabela3 <- tabela3 %>% fill(1:3)
-  tabela3 <- tabela3[c(4,1,2,3,5)]
-  tabela3 <- tabela3 %>% fill(1:5) %>% drop_na(1)
+  tabela3 <- tabela3 %>% drop_na()
   tabela3 <- tabela3 %>% arrange(CETRTLETJE)
   tabela3 <- tabela3 %>% mutate(LETO = CETRTLETJE %>% strapplyc("^([0-9]+)") %>%
                                   unlist() %>% parse_number(),
@@ -72,16 +71,25 @@ uvozi.tabela3 <- function(){
                                   unlist() %>% parse_number())
   tabela3$MERITEV <- tabela3$MERITEV %>% parse_number()
   tabela3$LETO <- tabela3$LETO %>% parse_integer()
+  tabela3$VRSTA_NASTANITVE <- tabela3$VRSTA_NASTANITVE %>% parse_character()
   tabela3$VRSTA_NASTANITVE <- gsub("Hoteli in podobni objekti", "Hoteli", tabela3$VRSTA_NASTANITVE)
   tabela3$VRSTA_NASTANITVE <- gsub("Druge najete nastanitvene zmogljivosti", "Ostalo", tabela3$VRSTA_NASTANITVE)
   tabela3$VRSTA_NASTANITVE <- gsub("Pri sorodnikih ali prijateljih", "Pri znancih", tabela3$VRSTA_NASTANITVE)
   tabela3$VRSTA_NASTANITVE <- gsub("Druge nenajete nastanitvene zmogljivosti", "Ostalo", tabela3$VRSTA_NASTANITVE)
   tabela3$VRSTA_NASTANITVE <- gsub("Lastno po.itni.ko bivali..e", "Lastna \nbivalisca" , tabela3$VRSTA_NASTANITVE)
-  tabela3$VRSTA_NASTANITVE <- tabela3$VRSTA_NASTANITVE %>% parse_character()
-  tabela3 <- tabela3[c(6,1,2,3,4,5)]
+  tabela3$VRSTA_MERITVE <- gsub("Preno.itve .v 1000.", "Prenocitve (v 1000)", tabela3$VRSTA_MERITVE)
+  tabela3$VRSTA_MERITVE <- gsub("Povpre.no .tevilo preno.itev", "Povprecno stevilo prenocitev", tabela3$VRSTA_MERITVE)
+  tabela3$VRSTA_MERITVE <- gsub("Povpre.ni izdatki na turista na preno.itev .EUR.", "Povprecni izdatki na turista na prenocitev (EUR)", tabela3$VRSTA_MERITVE)
+  tabela3 <- tabela3[c(6,4,1,2,3,5)]
   return(tabela3)
 }
 tabela3 <- uvozi.tabela3()
+
+tabela3.skupaj <- tabela3 %>% filter(VRSTA_MERITVE %in% c("Prenocitve (v 1000)", "Potovanja (v 1000)"))
+
+tabela3.povprecja <- tabela3 %>%
+  filter(VRSTA_MERITVE %in% c("Povprecno stevilo prenocitev",
+                              "Povprecni izdatki na turista na prenocitev (EUR)"))
 
 
 
@@ -95,19 +103,29 @@ uvozi.tabela4 <- function(){
                        n_max = 1452,
                        na = c("", " ", "-", "N"))
   tabela4 <- tabela4 %>% fill(1:3)
-  tabela4 <- tabela4 %>% drop_na(1:5)
+  tabela4 <- tabela4 %>% drop_na()
   tabela4 <- tabela4 %>% arrange(CETRTLETJE)
   tabela4 <- tabela4 %>% mutate(LETO = CETRTLETJE %>% strapplyc("^([0-9]+)") %>%
                                   unlist() %>% parse_number(),
                                 CETRTLETJE = CETRTLETJE %>% strapplyc("([0-9])$") %>%
                                   unlist() %>% parse_number())
   tabela4$MERITEV <- tabela4$MERITEV %>% parse_number()
-  tabela4 <- tabela4[c(6,4,1,2,3,5)]
+  tabela4$LETO <- tabela4$LETO %>% parse_integer()
   tabela4$VRSTA_PREVOZA <- gsub("Osebno cestno motorno vozilo","Avto",tabela4$VRSTA_PREVOZA)
+  tabela4$VRSTA_MERITVE <- gsub("Preno.itve .v 1000.", "Prenocitve (v 1000)", tabela4$VRSTA_MERITVE)
+  tabela4$VRSTA_MERITVE <- gsub("Povpre.no .tevilo preno.itev", "Povprecno stevilo prenocitev", tabela4$VRSTA_MERITVE)
+  tabela4$VRSTA_MERITVE <- gsub("Povpre.ni izdatki na turista na preno.itev .EUR.", "Povprecni izdatki na turista na prenocitev (EUR)", tabela4$VRSTA_MERITVE)
+  tabela4 <- tabela4[c(6,4,1,2,3,5)]
   return(tabela4)
 }
 tabela4 <- uvozi.tabela4()
 
+
+tabela4.skupaj <- tabela4 %>% filter(VRSTA_MERITVE %in% c("Prenocitve (v 1000)", "Potovanja (v 1000)"))
+
+tabela4.povprecja <- tabela4 %>%
+  filter(VRSTA_MERITVE %in% c("Povprecno stevilo prenocitev",
+                              "Povprecni izdatki na turista na prenocitev (EUR)"))
 
 
 
@@ -154,4 +172,17 @@ uvozi.tabela5 <- function(){
 
 tabela5 <- uvozi.tabela5()
 
+#Tabela 6: BDP Slovenije
+uvozi.tabela6 <- function(){
+  tabela6 <- readHTMLTable("podatki/BDP_Slovenija.html", which = 1, as.data.frame = TRUE)
+  colnames(tabela6) <- c("DRZAVA", 2006:2017)
+  tabela6 <- gather(tabela6, "2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017", key = "LETO", value = "BDP_v_milijonih")
+  tabela6$LETO <- tabela6$LETO %>% parse_integer()
+  tabela6$BDP_v_milijonih <- tabela6$BDP_v_milijonih %>% parse_number()
+  tabela6 <- tabela6 %>% drop_na()
+  tabela6 <- tabela6[c(2,1,3)]
+  return(tabela6)
+}
+
+tabela6 <- uvozi.tabela6()
 

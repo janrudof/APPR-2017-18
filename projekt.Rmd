@@ -34,7 +34,7 @@ source("uvoz/uvoz.r", encoding = "UTF-8")
 ```
 
 
-Podatke sem uvozil is strani Statističnega urada republike Slovenije in strani World Tourism Organization v obliki CSV, XLSX in HTML. Podatki so v petih tabelah v obliki *tidy data*.
+Podatke sem uvozil is strani Statističnega urada republike Slovenije, Eurostat-a in strani World Tourism Organization v obliki CSV, XLSX in HTML. Podatki so v šestih tabelah v obliki *tidy data*.
 
 1. `Tabela1` - podatki o prebivalcih Slovenije po udeleženosti na potovanjih po starosti
   - `leto` - spremenljivka: leto potovanj (celo število)
@@ -75,9 +75,11 @@ Podatke sem uvozil is strani Statističnega urada republike Slovenije in strani 
   - `država potovanja` - spremenljivka: (besedilo)
   - `kratica` - spremenljivka: (besedilo)
   - `število potovanj` - meritev: (število)
-
-
-**Opomba**: V `Tabela3` in `Tabela4` so podatki o povprečnem številu nočitev in povprečnih izdatkih na nočitev, kateri niso v *tidy data*. V kratkem bo to popravljeno. 
+  
+6. `Tabela6` - BDP Slovenije (2006 - 2016)
+  - `leto` - spremenljivka: leto (celo število)
+  - `država` - spremenljivka: (besedilo)
+  - `BDP` - meritev: BDP v milijonih (število)
 
 
 ***
@@ -88,11 +90,26 @@ Podatke sem uvozil is strani Statističnega urada republike Slovenije in strani 
 source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
 ```
 
-Kot sem že povedal prej, se bom osredotočil na primerjanje med tremi različnimi obdobji (prekrizni, krizni in "pokrizni" čas), s katerimi bi lahko ugotovil značilnosti potovanj v posameznem obdobju in tako lahko nekako napovedal težnje po potovanjih v prihodnje. Hitro sem opazil, da je v času krize (okoli leta 2008 do 2014) bilo namenjenega potovanjem manj denarja kot pa v zadnjih letih.
+Pri analizi se bom osredotočil na primerjanje med tremi različnimi obdobji (prekrizni, krizni in "pokrizni" čas), s katerimi bi lahko ugotovil značilnosti potovanj v posameznem obdobju in tako lahko nekako napovedal težnje po potovanjih v prihodnje. Kot nekakšen indikator oziroma pokazatelj gospodarskih vzponov in padcov prikaže BDP skozi čas.
+
+```{r graf6, echo=FALSE, message=FALSE, warning=FALSE}
+graf6
+```
+
+Graf prikazuje nekakšen prvi vtis obdobja v katerem bom analiziral potovanja Slovencev. Prikazuje gospodarsko krizo in vzpon, katera so vplivala na število potovanj.
 
 ### Potovanja glede na dohodek gospodinjstva
 
 Najprej sem opazil velike razlike v številu potovanj na ravni dohodkovne neenakosti. Premožnejši ljudje veliko več potujejo kot ljudje iz ostalih dohodkovnih razredov, kar je pričakovano, vendar me je presenetilo, da so ravno oni v času krize drastično zmanjšali prihodke za potovanja oziroma se preprosto niso več odločali za potovanja. Vse se lepo vidi iz grafa.
+
+```{r graf2, echo=FALSE, message=FALSE, warning=FALSE}
+graf2
+```
+
+### Potovanja glede na starostno skupino
+
+Tudi pri analizi potovanj glede na starost se že na prvi pogled vidijo odstopanja. Na začetku krize, leta 2007 oziroma 2008, pride do padca števila potovanj, kar je bilo nekako pričakovano. Bolj zanimivo je nadaljevanje. Kljub gospodarski krizi, se je število potovanj povečevalo (z manjšimi odstopanji), razen v starostni skupini dijakov in študentov (15-24 let). Zanimivo je, da je bilo v času krize število potovanj razmeroma podobno; le v zadnjih letih pa je močno padlo.
+
 
 ```{r graf1, echo=FALSE, message=FALSE, warning=FALSE}
 graf1
