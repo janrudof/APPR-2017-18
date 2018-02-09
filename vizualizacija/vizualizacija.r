@@ -45,11 +45,9 @@ tabela1.zdruzena <- tabela1 %>% group_by(LETO, `STAROST`, `VRSTA_POTOVANJA`) %>%
 
 graf1 <- ggplot(tabela1.zdruzena %>% filter(VRSTA_POTOVANJA == "Sli na zasebno potovanje", STAROST != "Starost - SKUPAJ")) + 
   aes(x = LETO, y= SKUPAJ, col = STAROST) +
-  geom_line()+
-  xlab("Leto") +
-  ylab("Število potovanj (v 1000)") +
-  theme_bw() + 
-  ggtitle("Potovanja glede na starostno skupino")
+  labs(title = "Potovanja glede na starostno skupino", x = "Leto", y = "Število potovanj (v 1000)", color = "Starostna skupina") +
+  geom_line() +
+  theme_bw()
 
 #Potovanja glede na dohodkovni razred
 tabela2.zdruzena <- tabela2 %>% group_by(LETO, `DOHODKOVNI_RAZRED`, `VRSTA_POTOVANJA`) %>%
@@ -57,12 +55,9 @@ tabela2.zdruzena <- tabela2 %>% group_by(LETO, `DOHODKOVNI_RAZRED`, `VRSTA_POTOV
 
 graf2 <- ggplot(tabela2.zdruzena %>% filter(VRSTA_POTOVANJA == "Sli na zasebno potovanje")) + 
   aes(x = LETO, y= SKUPAJ, col = DOHODKOVNI_RAZRED) +
+  labs(title = "Potovanja glede na dohodkovni razredo", x = "Leto", y = "Število potovanj (v 1000)", color = "Dohodkovni razred") +
   geom_line()+
-  xlab("Leto") +
-  ylab("Število potovanj (v 1000)") +
-  theme_bw() + 
-  ggtitle("Potovanja glede na dohodkovni razred")
-
+  theme_bw()
 
 
 #Potovanja glede na nastanitveni objekt
@@ -140,4 +135,5 @@ graf6 <- ggplot(tabela6) + aes(x = LETO, y = BDP_v_milijonih) +
   ggtitle("BDP Slovenije") + 
   ylab("BDP v milijonih evrov") +
   xlab("Leto") +
+  scale_x_continuous(breaks = seq(2006, 2016, 1)) +
   theme_bw()
