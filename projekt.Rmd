@@ -151,6 +151,10 @@ graf.potovanja.evropa.2015
 shinyAppDir("shiny", options=list(width="100%", height= 800))
 ```
 
+```{r shinyStarost, echo = FALSE}
+shinyStarostAppDir("shiny", options=list(width="100%", height= 800))
+```
+
 
 
 

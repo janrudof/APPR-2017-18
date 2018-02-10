@@ -39,6 +39,7 @@ graf.potovanja.evropa.2015 <- ggplot() + aes(x = long, y = lat, group = group,
 
 #GRAFI
 
+
 #Potovanja glede na starost
 tabela1.zdruzena <- tabela1 %>% group_by(LETO, `STAROST`, `VRSTA_POTOVANJA`) %>%
   summarise(SKUPAJ = sum(MERITEV))
@@ -55,7 +56,7 @@ tabela2.zdruzena <- tabela2 %>% group_by(LETO, `DOHODKOVNI_RAZRED`, `VRSTA_POTOV
 
 graf2 <- ggplot(tabela2.zdruzena %>% filter(VRSTA_POTOVANJA == "Sli na zasebno potovanje")) + 
   aes(x = LETO, y= SKUPAJ, col = DOHODKOVNI_RAZRED) +
-  labs(title = "Potovanja glede na dohodkovni razredo", x = "Leto", y = "Število potovanj (v 1000)", color = "Dohodkovni razred") +
+  labs(title = "Potovanja glede na dohodkovni razred", x = "Leto", y = "Število potovanj (v 1000)", color = "Dohodkovni razred") +
   geom_line()+
   theme_bw()
 
