@@ -159,5 +159,6 @@ skupaj$VRSTA_MERITVE <- gsub("Drugo", "Druge vrste prevoza", skupaj$VRSTA_MERITV
 graf.skupaj <- ggplot(skupaj) +
   aes(x=LETO, y=SKUPAJ, col=VRSTA_MERITVE) +
   labs(title = "Povprečni izdatki glede na nastanitev in prevoz", x= "Leto", y= "Povprečni izdatki na turista na prenočitev (EUR)", col = NULL) +
-  geom_path(size = 2) +
+  geom_line(size = 2) +
   theme_bw()
+  

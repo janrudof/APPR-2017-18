@@ -6,8 +6,7 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2017/18
 
 ## Analiza potovanj prebivalcev Slovenije
 
-Pri projektu bom analiziral potovanja Slovencev v letih 2006 do 2016. Osredotočil se bom na glavne faktorje, kot so: število ljudi, ki se odloči za potovanje, finance namenjene potovanju in struktura izdatkov, število dni potovanja, odločitev za potovanje glede na neto dohodek, odločitev za potovanje glede na starost, nastanitev ter vrsto potovanja. 
-Zanimala me bo predvsem razlika v strukturi potovanj v predkriznem, kriznem in v današnjem (lahko rečem pokriznem) času.
+Pri projektu bom analiziral potovanja Slovencev v letih 2006 do 2016. Osredotočil se bom na glavne faktorje, kot so: število ljudi, ki se odloči za potovanje, finance namenjene potovanju in struktura izdatkov, odločitev za potovanje glede na neto dohodek, odločitev za potovanje glede na starost, nastanitev ter vrsto potovanja. Zanimala me bo predvsem razlika v strukturi potovanj v predkriznem, kriznem in v današnjem (lahko rečem pokriznem) času, prav tako pa bom skušal napovedati trende za prihodnost. 
 
 ### Zasnova tabel
 
@@ -26,6 +25,8 @@ Stolpci: LETO, ČETRTLETJE, DESTINACIJA, VRSTA PREVOZA, VRSTA MERITVE, MERITEV
 #### Tabela 5: Zasebna potovanja po destinaciji in nastanitvenem objektu
 Stolpci: LETO, DRŽAVA POTOVANJA, KRATICA, ŠTEVILO POTOVANJ
 
+#### Tabela 6: BDP Slovenije
+Stolpci: LETO, DRŽAVA, BDP
 
 ### Viri podatkov
 
