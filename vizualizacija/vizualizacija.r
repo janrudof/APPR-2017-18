@@ -47,7 +47,7 @@ tabela1.zdruzena <- tabela1 %>% group_by(LETO, `STAROST`, `VRSTA_POTOVANJA`) %>%
 graf1 <- ggplot(tabela1.zdruzena %>% filter(VRSTA_POTOVANJA == "Sli na zasebno potovanje", STAROST != "Starost - SKUPAJ")) + 
   aes(x = LETO, y= SKUPAJ, col = STAROST) +
   labs(title = "Potovanja glede na starostno skupino", x = "Leto", y = "Število potovanj (v 1000)", color = "Starostna skupina") +
-  geom_line() +
+  geom_line(size = 2) +
   theme_bw()
 
 #Potovanja glede na dohodkovni razred
@@ -57,7 +57,7 @@ tabela2.zdruzena <- tabela2 %>% group_by(LETO, `DOHODKOVNI_RAZRED`, `VRSTA_POTOV
 graf2 <- ggplot(tabela2.zdruzena %>% filter(VRSTA_POTOVANJA == "Sli na zasebno potovanje")) + 
   aes(x = LETO, y= SKUPAJ, col = DOHODKOVNI_RAZRED) +
   labs(title = "Potovanja glede na dohodkovni razred", x = "Leto", y = "Število potovanj (v 1000)", color = "Dohodkovni razred") +
-  geom_line()+
+  geom_line(size =2)+
   theme_bw()
 
 
@@ -132,9 +132,32 @@ skupek.grafov4 <- ggarrange(graf4.1, graf4.2, graf4.3, ncol = 2, nrow=2, align =
 #BDP Slovenije za pomoč pri interpretiranju ostalih podatkov
 
 graf6 <- ggplot(tabela6) + aes(x = LETO, y = BDP_v_milijonih) +
-  geom_col(fill = "green") +
+  geom_col(fill = "blue", width = 0.5) +
   ggtitle("BDP Slovenije") + 
   ylab("BDP v milijonih evrov") +
   xlab("Leto") +
   scale_x_continuous(breaks = seq(2006, 2016, 1)) +
+  theme_bw()
+
+#Povprečni izdatki za prevoz in nastanitev
+
+
+skupna.tabela3 <- spread(tabela3.zdruzena, VRSTA_NASTANITVE, SKUPAJ)  
+skupna.tabela3 <- skupna.tabela3 %>% filter(DESTINACIJA == "Tujina", VRSTA_MERITVE == "Povprecni izdatki na turista na prenocitev (EUR)")
+skupna.tabela3$VRSTA_MERITVE <- NULL
+skupna.tabela4 <- spread(tabela4.zdruzena, VRSTA_PREVOZA, SKUPAJ)  
+skupna.tabela4 <- skupna.tabela4 %>% filter(DESTINACIJA == "Tujina", VRSTA_MERITVE == "Povprecni izdatki na turista na prenocitev (EUR)")
+skupna.tabela4$VRSTA_MERITVE <- NULL
+skupna.tabela <- left_join(skupna.tabela3, skupna.tabela4, by = c("LETO", "DESTINACIJA"))
+skupaj <- gather(skupna.tabela, "Hoteli", "Kampi", "Lastna \nbivalisca", "Ostalo", "Pri znancih", "Avto", "Avtobus", "Drugo", "Letalo", key = "VRSTA_MERITVE", value="SKUPAJ")
+skupaj <- skupaj %>% drop_na()
+skupaj$SKUPAJ <- skupaj$SKUPAJ / 4
+skupaj$DESTINACIJA <- NULL
+skupaj$VRSTA_MERITVE <- gsub("Ostalo", "Ostale nastanitve", skupaj$VRSTA_MERITVE)
+skupaj$VRSTA_MERITVE <- gsub("Drugo", "Druge vrste prevoza", skupaj$VRSTA_MERITVE)
+
+graf.skupaj <- ggplot(skupaj) +
+  aes(x=LETO, y=SKUPAJ, col=VRSTA_MERITVE) +
+  labs(title = "Povprečni izdatki glede na nastanitev in prevoz", x= "Leto", y= "Povprečni izdatki na turista na prenočitev (EUR)", col = NULL) +
+  geom_path(size = 2) +
   theme_bw()

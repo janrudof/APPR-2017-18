@@ -1,5 +1,5 @@
 ---
-title: "Poročilo pri predmetu Analiza podatkov s programom R"
+title: "Analiza potovanj prebivalcev Slovenije"
 author: "Jan Rudof"
 output:
   html_document: default
@@ -19,11 +19,14 @@ runtime: shiny
 source("lib/libraries.r", encoding = "UTF-8")
 ```
 
-# Analiza potovanj prebivalcev Slovenije
+![](Holiday.jpg)
 
 
-Za projekt sem si izbral analizo potovanj prebivalcev Slovenije v letih 2006 do 2016. Ker tudi sam veliko potujem, mi je tema blizu, zato me je zanimalo, kako, kam in v kakšnem finančnem okvirju potujejo drugi. Pri analizi podatkov potovanj se bom osredotočil predvsem na število ljudi, ki se odloči za potovanje, finance namenjene za nastanitev in transport, odločitev za potovanje glede na neto dohodek ter odločitev za potovanje glede na starost.
-Zanimala me bo predvsem razlika v strukturi potovanj v predkriznem, kriznem in v današnjem (lahko rečem pokriznem) času. S tem želim napovedati, katere destinacije so, oziromajo bojo zmeraj bolj priljubljene.
+
+
+<br/>
+
+Za projekt sem si izbral analizo potovanj prebivalcev Slovenije v letih 2006 do 2016. Ker tudi sam veliko potujem, mi je tema blizu, zato me je zanimalo, kako, kam in v kakšnem finančnem okvirju potujejo drugi. Zanimala me bo predvsem razlika v strukturi potovanj v predkriznem, kriznem in v današnjem (lahko rečem pokriznem) času. S tem želim napovedati, kako bo s potovanji v prihodnje.
 
 ***
 
@@ -86,6 +89,7 @@ Podatke sem uvozil is strani Statističnega urada republike Slovenije, Eurostat-
 
 # Analiza in vizualizacija podatkov
 
+
 ```{r vizualizacija, echo=FALSE, message=FALSE, warning=FALSE}
 source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
 ```
@@ -98,7 +102,7 @@ graf6
 
 Graf prikazuje nekakšen prvi vtis obdobja v katerem bom analiziral potovanja Slovencev. Prikazuje gospodarsko krizo in vzpon, katera so vplivala na število potovanj.
 
-### Potovanja glede na dohodek gospodinjstva
+### Potovanja glede na mesečni neto dohodek na člana gospodinjstva
 
 Najprej sem opazil velike razlike v številu potovanj na ravni dohodkovne neenakosti. Premožnejši ljudje veliko več potujejo kot ljudje iz ostalih dohodkovnih razredov, kar je pričakovano, vendar me je presenetilo, da so ravno oni v času krize drastično zmanjšali prihodke za potovanja oziroma se preprosto niso več odločali za potovanja. Vse se lepo vidi iz grafa.
 
@@ -129,6 +133,12 @@ Podobno analizo kot pri nastanitvah sem želel odkriti pri prevoznem sredstvu. M
 skupek.grafov4
 ```
 
+Predvideval sem, da je kriza vplivala na finance namenjene potovanjem, vendar spodnji graf zanika mojo trditev. Čeprav spodnji graf ni pravi pokazatelj izdatkov, saj prikazuje povprečne izdatke na turista na nočitev za vse izdatke tekom potovanja glede na nastanitveni objekt oziroma prevozno sredstvo. Kljub temu da nek vpogled v zapravljen denar na potovanju in vidimo, da ja razmeroma podobno, le povprečni izdatki pri uporabi avtobusa in letala malo variirajo, kar pripisujem spreminjajoči se ponudbi letalskih in avtobusnih prevoznikov (spreminjanje cene zaradi konkurence).
+
+```{r graf.skupaj, echo=FALSE, message=FALSE, warning=FALSE}
+graf.skupaj
+```
+
 ### Potovanja po državah
 
 Pri analizi potovanj v zadnjih letih sem opazil, da si ljudje upajo potovati tudi malo dlje od Evrope. To sem nekako predvideval, saj naj bi bili po gospodarskih indikatorjih že iz krize. Prebivalci Slovenije so tako posegli tudi po bolj oddaljenih krajih. To je lepo prikazano na zemljevidu, kjer se vidi veliko število potovanj v kraje širom sveta.
@@ -144,17 +154,69 @@ Največ potovanj pa je še vedno širom Evrope, zato prilagam še zemljevid Evro
 graf.potovanja.evropa.2015
 ```
 
+V spodnji aplikaciji si je možno ogledati število potovanj v različne države od leta 2006 do 2016.
+
+```{r shiny, echo = FALSE}
+shinyAppDir("shiny", options=list(width="100%", height= 650))
+```
+
+***
+
 # Napredna analiza podatkov
 
 
-```{r shiny, echo = FALSE}
-shinyAppDir("shiny", options=list(width="100%", height= 800))
-```
+Pri napredni analizi sem opazoval predvsem trende potovanj za leta 2018 do 2020. Težko je napovedati dejanske številke, vendar je zanimivo videti, kaj nam vgrajene funkcije napovedujejo za prihodnost.
+
+### Napoved potovanj glede na starostno skupino
+
+V spodnji aplikaciji se vidijo napovedi za prihodnja leta za število potovanj glede na starostno skupino. Glede na trende v zadnjih letih, je predvidevati, da bo število potovanj naraščalo v vseh skupinah, le mladi naj bi potovali manj. S to napovedjo se ne strinjam povsem, saj se mi zdi, da so razmere vedno boljše za mlade za potovanja. K temu seveda štejem tudi razne študijske izmenjave. Bomo videli kako dejansko bo v prihodnje in nato lahko prišli do zaključkov glede pravilnosti napovedi.   
+
+<br/>
 
 ```{r shinyStarost, echo = FALSE}
-shinyStarostAppDir("shiny", options=list(width="100%", height= 800))
+shinyAppDir("shinyStarost", options=list(width="100%", height= 400))
 ```
 
+### Napoved potovanj glede na mesečni neto dohodek na člana gospodinjstva
+
+Zaradi težav pri določanju kvartilov za neto mesečni dohodek na člana gospodinjstva, sem naletel na težavo pri interpretiranju podatkov ter napovedi. Na SURS-u ni objavljenih točno določenih mej za kvartile, zato si je težko predstavljati razvrstitev članov gospodinjstva v posamezen kvartil. Lahko pa predvidevamo, da v 1. kvartil spadajo ljudje z najnižjimi dohodki, v 2. kvartil ljudje z neto mesečnim dohodkom okoli povprečne mesečne neto plače, ljudje v 3. kvartilu imajo mesečno neto plačo nad povprečno, v 4. kvartilu pa so ljudje z najvišjimi mesečnimi plačami. Prav zato je zanimivo, da kljub velikim dohodkom, so napovedi za 4. kvartil slabše kot za recimo 1. kvartil. Krivulja je rahlo padajoča, kar pomeni, da bo število potovanj v prihodnjih letih manjše kjub temu, da naj bi imeli ohlapnejše finančne omejitve in zato več možnosti za potovanje (število potovanj ne moremo primerjati s številom ljudi, ki potujejo, saj ne vemo kolikšna je množica ljudi v posameznem kvartilu). 
+
+<br/>
+
+```{r shinyDohodek, echo = FALSE}
+shinyAppDir("shinyDohodek", options=list(width="100%", height= 400))
+```
+
+### Napoved uporabe nastanitvenih objektov na potovanjih 
+
+Pri napovedi potovanj glede na uporabo nastanitvenega objekta, sem v rahli dilemi. Pri uporabi različnih funkcij za napovedovanje trendov, so napovedi zelo različne. Najbolj verjetna mi je spodnja napoved. Število potovanj pri nastanitvi v lastnem počitniškem objektu ali pa pri znancih, se skozi leta (predvidevam) ne bo moralo prav drastično spreminjati. Mislim, da sta te dve možnosti nastanitve najbolj omejeni in imata namanj maneverskega prostora. 
+Za ostale možnosti nastanitve pa naj bi se število potovanj povečalo.
+
+<br/>
+
+```{r shinyNastanitev, echo = FALSE}
+shinyAppDir("shinyNastanitev", options=list(width="100%", height= 400))
+```
+
+### Napoved uporabe prevoznih sredstev na potovanjih
+
+Kot že v vseh prejšnjih napovedih, se bo tudi število potovanj glede na prevozno sredstvo povečalo. To je nekako očitno, saj je povečanje števila potovanj premo sorazmerno s povečanjem  uporabe transportnih sistemov. Trendi so prikazani spodaj. 
+
+<br/>
+
+```{r shinyPrevoz, echo = FALSE}
+shinyAppDir("shinyPrevoz", options=list(width="100%", height= 400))
+```
+
+***
+
+# Zaključek
+
+Če pogledamo vse trende potovanj v zadnjih letih ter napovedi za naslednja leta, je očitno, da se bo število potovanj povečalo v vseh pogledih. Žal ne moremo razbrati, ali to pomeni, da bo potovalo več ljudi, ali se bo samo ista množica ljudi večkrat odločila za potovanje. Kljub temu lahko napovemo vzpon turizma. To ni nič presenetljivo, saj je svet vedno bolj dostopen (tako cenovno kot v smislu transportnih povezav) in prav je, da to izkoristimo. 
+
+<br/>
+
+![](Travel.png)
 
 
 
