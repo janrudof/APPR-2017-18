@@ -85,13 +85,14 @@ uvozi.tabela3 <- function(){
 }
 tabela3 <- uvozi.tabela3()
 
-tabela3.skupaj <- tabela3 %>% filter(VRSTA_MERITVE %in% c("Prenocitve (v 1000)", "Potovanja (v 1000)"))
+#Tabela3.1: Število zasebnih potovanj glede na nastanitveni objekt v 1000
+tabela3.skupaj <- tabela3 %>% filter(VRSTA_MERITVE == "Potovanja (v 1000)")
+tabela3.skupaj$VRSTA_MERITVE <- NULL
 
-tabela3.povprecja <- tabela3 %>%
-  filter(VRSTA_MERITVE %in% c("Povprecno stevilo prenocitev",
-                              "Povprecni izdatki na turista na prenocitev (EUR)"))
-
-
+#Tabela3.2: Povprečni izdatki glede na turista na prenočitev v EUR glede na nastanitveni objekt
+tabela3.povprecja.izdatki <- tabela3 %>% filter(VRSTA_MERITVE == "Povprecni izdatki na turista na prenocitev (EUR)")
+tabela3.povprecja.izdatki$VRSTA_MERITVE <- NULL 
+#tabela3.povprecja.prenocitve <- tabela3 %>% filter(VRSTA_MERITVE == "Povprecno stevilo prenocitev")
 
 #Tabela 4: Zasebna potovanja po destinaciji in prevoznem sredstvu
 uvozi.tabela4 <- function(){
@@ -120,12 +121,13 @@ uvozi.tabela4 <- function(){
 }
 tabela4 <- uvozi.tabela4()
 
+#Tabela4.1: Število potovanj glede na prevozno sredstvo v 1000
+tabela4.skupaj <- tabela4 %>% filter(VRSTA_MERITVE == "Potovanja (v 1000)")
+tabela4.skupaj$VRSTA_MERITVE <- NULL
 
-tabela4.skupaj <- tabela4 %>% filter(VRSTA_MERITVE %in% c("Prenocitve (v 1000)", "Potovanja (v 1000)"))
-
-tabela4.povprecja <- tabela4 %>%
-  filter(VRSTA_MERITVE %in% c("Povprecno stevilo prenocitev",
-                              "Povprecni izdatki na turista na prenocitev (EUR)"))
+#Tabela4.2: Povprečni izdatki glede na turista na prenočitev v EUR glede na prevozno sredstvo
+tabela4.povprecja.izdatki <- tabela4 %>% filter(VRSTA_MERITVE == "Povprecni izdatki na turista na prenocitev (EUR)")
+tabela4.povprecja.izdatki$VRSTA_MERITVE <- NULL
 
 
 

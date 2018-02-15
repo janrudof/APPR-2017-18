@@ -55,31 +55,41 @@ Podatke sem uvozil is strani Statističnega urada republike Slovenije, Eurostat-
   - `meritev` - meritev: število ljudi posamezne kategorije udeleženo na potovanjih (število)
   
 
-3. `Tabela3` - podatki o zasebnih potovanjih po destinaciji in nastanitvenem objektu
+3. `Tabela3.1` - podatki o številu potovanj (v 1000) po destinaciji in nastanitvenem objektu
   - `leto` - spremenljivka: leto potovanj (celo število)
   - `četrtletje` - spremenljivka: številka četrtletja (celo število)
   - `destinacija` - spremenljivka: potovanja v tujino/po Sloveniji (besedilo)
   - `vrsta nastanitve` - spremenljivka: nastanitev v hotelu, kampu, lastno počitniško bivališče ali pri sorodnikih (besedilo)
-  - `vrsta meritve` - spremenljivka: merjenje glede na prenočitve (v 1000), povprečno število nočitev, potovanja (v 1000) in povprečni izdatki na nočitev (EUR) (besedilo)
-  - `meritev` - meritev: odvisno od `vrste meritve` (lahko EUR, število nočitev, število potovanj)
+  - `meritev` - meritev:(število potovanj v 1000)
   
+4. `Tabela3.2` - podatki o povprečnih izdatkih glede na prenočitev na turista v EUR po nastanitvenem objektu
+  - `leto` - spremenljivka: leto potovanj (celo število)
+  - `četrtletje` - spremenljivka: številka četrtletja (celo število)
+  - `destinacija` - spremenljivka: potovanja v tujino/po Sloveniji (besedilo)
+  - `vrsta nastanitve` - spremenljivka: nastanitev v hotelu, kampu, lastno počitniško bivališče ali pri sorodnikih (besedilo)
+  - `meritev` - meritev: povprečni izdatki na prenočitev na turista v EUR (število)  
 
-4. `Tabela4` - podatki o zasebnih potovanjih po destinaciji in prevoznem sredstvu  
+5. `Tabela4.1` - podatki o številu potovanj (v 1000) po destinaciji in prevoznem sredstvu  
   - `leto` - spremenljivka: leto potovanj (celo število)
   - `četrtletje` - spremenljivka: številka četrtletja (celo število)
   - `destinacija` - spremenljivka: potovanja v tujino/po Sloveniji (besedilo)
   - `vrsta prevoza` - spremenljivka: prevoz z avtomobilom, letalom, avtobusom, drugo (besedilo)
-  - `vrsta meritve` - spremenljivka: merjenje glede na prenočitve (v 1000), povprečno število nočitev, potovanja (v 1000) in povprečni izdatki na nočitev (EUR) (besedilo)
-  - `meritev` - meritev: odvisno od `vrste meritve` (lahko EUR, število nočitev, število potovanj)
+  - `meritev` - meritev:(število potovanj v 1000)
 
+6. `Tabela4.2` - podatki o povprečnih izdatkih glede na prenočitev na turista v EUR glede na vrsto prevoza
+  - `leto` - spremenljivka: leto potovanj (celo število)
+  - `četrtletje` - spremenljivka: številka četrtletja (celo število)
+  - `destinacija` - spremenljivka: potovanja v tujino/po Sloveniji (besedilo)
+  - `vrsta prevoza` - spremenljivka: prevoz z avtomobilom, letalom, avtobusom, drugo (besedilo)
+  - `meritev` - meritev: povprečni izdatki na prenočitev na turista v EUR (število)
 
-5. `Tabela5` - podatki o številu potovanj v posamezne države
+7. `Tabela5` - podatki o številu potovanj v posamezne države
   - `leto` - spremenljivka: leto potovanj (celo število)
   - `država potovanja` - spremenljivka: (besedilo)
   - `kratica` - spremenljivka: (besedilo)
   - `število potovanj` - meritev: (število)
   
-6. `Tabela6` - BDP Slovenije (2006 - 2016)
+8. `Tabela6` - BDP Slovenije (2006 - 2016)
   - `leto` - spremenljivka: leto (celo število)
   - `država` - spremenljivka: (besedilo)
   - `BDP` - meritev: BDP v milijonih (število)
